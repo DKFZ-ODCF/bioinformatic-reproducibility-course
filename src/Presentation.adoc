@@ -1,0 +1,482 @@
+= Conda for Convenience and Reproducibility
+
+You have done a bioinformatic analysis and want to reproduce it.
+
+NOTE: Implement reproducibility features as early as possible. Later it may become extremely boring and hard to make your workflow run again or somewhere else.
+
+== You want ...
+
+=== ... to publish and share
+[plantuml]
+....
+@startuml
+title
+Share!
+end title
+
+:you:
+:other:
+
+top to bottom direction
+you <-> other : communicate
+
+node "your system" as yours {
+   left to right direction
+   you ..> [workflow] : develop
+}
+
+node "other system" as others {
+   top to bottom direction
+   [workflow] -> [workflow ] : transfer
+
+   left to right direction
+   other ..> [workflow ] : execute
+}
+
+@enduml
+....
+
+=== .. to reuse
+[plantuml]
+....
+@startuml
+title
+Reuse!
+end title
+
+:you:
+:future you!: as future
+
+top to bottom direction
+you -> future : communicate
+
+node "old system" as old {
+   left to right direction
+   you ..> [workflow] : develop
+}
+
+node "new system" as new {
+   top to bottom direction
+   [workflow] -> [workflow ] : transfer
+
+   left to right direction
+   future ..> [workflow ] : reuse
+}
+
+
+@enduml
+....
+
+=== ... to scale out
+[plantuml]
+....
+@startuml
+title
+Cloud!
+end title
+
+:you:
+
+cloud "de.NBI Cloud" {
+   node "Node 1000" as n1000
+   node "Node 1" as n1
+   node "Node 2" as n2
+
+   node n1 {
+     [workflow]
+     left to right direction
+     you ...> [workflow]
+   }
+
+   node n2 {
+     [workflow  ]
+     left to right direction
+     you ...> [workflow  ]
+   }
+
+   node n1000 {
+     [workflow ]
+     left to right direction
+     you ...> [workflow ]
+   }
+
+
+}
+
+@enduml
+....
+
+
+== The Challenges ...
+
+  * Many software tools in specific versions.
+  * You used the pre-installed *department software stack* on the computing system you worked on.
+  * You have no clue, where to download the right versions or how to compile them plus all their dependencies.
+
+== Reproducible Research
+
+  * Document all important factors of an experiment and analysis.
+  * Exact reproducibility is impossible in the lab.
+  * In bioinformatics: avoid systematic artifacts.
+
+=== Bioinformatic Reproducibility is Achievable!
+
+*But is it worth the effort?*
+
+  * *Robust* results?
+    - If not reproducible with a slightly (?) different software version
+  * Try out different software tools.
+    - Differences may be larger than many other factors influencing the data.
+  * Look for artifacts in your plots.
+  * Consider circumstantial evidence
+    - e.g. manual analysis and literature search on candidates
+  * Experimental validation!
+
+=== Bioinformatic Reproducibility is Hard
+
+There are uncontrollable factors:
+
+* Software on the host operating system
+  - ... evolves
+  - ... may have subtle influence on your results
+* Bioinformatic software packages may get lost
+* You don't want to waste you time with this technical stuff
+  - ... there are also the other reproducibility aspects
+  - ... and the publishing ...
+
+All this should be considered, when trying to achieve bioinformatic reproducibility!
+
+== Requirements
+
+* Quick and correct deployment
+* User-space installation without administrator rights
+* Manage multiple "environments"
+* Lots of packages ... maintained by s.b. else ;-D
+* Easy sharing of workflows
+* Easy publishing of *your* tools
+
+=== Enter: https://conda.io/docs/[Conda]
+
+* https://www.anaconda.com/[Anaconda Inc.]
+* Command-line tool based on Python (2.7, 3.6)
+* Anaconda and https://conda.io/miniconda.html[Miniconda] distributions
+  - Linux
+  - MacOS
+  - Windows
+* > 9000 packages, > 86.000 versions (including those for bioinformatics)
+* There is a Users Guide at https://conda.io/docs/user-guide
+
+=== ... and https://bioconda.github.io/[BioConda]
+
+* Community-driven
+ - > 4.000 bioinformatic-related packages, > 18.000 versions
+ - BioConda https://github.com/bioconda/bioconda-recipes[Recipes]
+ - Most packages for Linux
+* Automatic building of Docker and Singularity containers via https://conda.io/docs/[BioContainers]
+* There is a https://www.nature.com/articles/s41592-018-0046-7[paper] (https://doi.org/10.1038/s41592-018-0046-7)
+
+== Install Miniconda
+
+[source,bash]
+----
+$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ bash Miniconda3-latest-Linux-x86_64.sh
+----
+
+Choose a place where you have a bit more free space there -- so beware!
+
+The installation can update your environment setup scripts (e.g. `~/.bashrc`).
+
+Now start conda for the first time and get some information about the interface:
+
+[source,bash]
+----
+$ conda
+
+----
+
+\... and the basic configuration:
+
+```bash
+$ conda info
+```
+
+== Channels
+
+* Channels are conda's package repositories
+* Multiple channels can be used at the same time with different priorities
+
+[source,bash]
+----
+$ conda config --add channels defaults     # Ananconda Inc.'s default channel
+$ conda config --add channels conda-forge
+$ conda config --add channels bioconda
+----
+
+Each command adds a channel with higher priority than the previous commands.
+
+Now the output of ...
+
+[source,bash]
+----
+$ conda info
+----
+
+\... will show more channels.
+
+
+== Finding Packages
+
+[source,bash]
+----
+$ conda search | grep bioconda | wc -l
+----
+
+You'll notice that a search can take some time! But there are really lot's of packages.
+
+You can also search for specific packages, versions, and builds.
+
+[source,bash]
+----
+$ conda search -h        <1>
+$ conda search samtools
+$ conda search samtools==0.1.19
+$ conda search '*samtools'       <2>
+----
+<1> to get a description of the command
+<2> the quotes prevent globing by the shell
+
+The output shows which package versions match the search expression and are available from which channel in which version.
+
+Note that the build version sometimes is pretty simple, but sometimes rather cryptic. Build versions represent the same package but with changed
+
+* compile parameters
+* dependencies (numpy, ...)
+* interpreters (Perl, Python, R, ...)
+
+== Environments
+
+Different command-line environments allow you to handle different -- potentially incompatible -- sets of tools.
+
+To list all available environments you can do:
+
+[source,bash]
+----
+$ conda list
+----
+
+Let's create a new environment with another great tool for reproducible research:
+
+[source,bash]
+----
+conda create -n interactive-analysis jupyter-notebook
+----
+
+This will install about 125 MB of tools and shows you which exact versions and builds are installed. For a single tool a large number of dependencies may be pulled in. Many of them are likely not used or needed by you.
+
+Type "yes" and wait ...
+
+After that you can see the "interactive-analysis" in the list of your environments:
+
+[source,bash]
+----
+$ conda env list
+$ conda info --envs   # same as before
+----
+
+Let's first try
+
+[source,bash]
+----
+$ jupyter
+bash: jupyter: Command not found
+----
+
+That's probably the obvious outcome of this negative control experiment :-P
+
+Now switch to the newly installed environment and try out you new toy:
+
+[source,bash]
+----
+$ source activate interactive-analysis
+$ jupyter notebook
+----
+
+Actually, in my case this did not work, because apparently the package was broken. When starting the notebook and the Python 3 "Kernel" the kernel failed with an error message.
+
+This is not only a demonstration of the daily life in bioinformatics but also the ideal opportunity to demonstrate that you can install arbitrary Python packages in this environment ;-D. So after ...
+
+[source,bash]
+----
+pip install jupyter -U
+----
+
+\... a Jupyter Notebook is installed in the environment with the Python package installation tool `pip`.
+
+After starting Jupyter again with `jupyter notebook` and starting a Python kernel (at the top right in the bar) you can enter Python expressions and see how they evaluate in a literate programing environment!
+
+image::src/Jupyter1.png[Jupyter]
+
+After you are done with your work, you can do ...
+
+[source,bash]
+----
+source deactivate
+----
+\... to restore you original, Conda-free environment.
+
+== Sharing Environments
+
+How to transfer an environment to a different machine?
+
+1. Export the environment specification into a YAML file.
++
+```bash
+conda env export -n interactive-analysis > environment.yaml
+```
++
+The resulting YAML file looks like this:
++
+[source,yaml]
+----
+name: interactive-analysis
+channels:
+  - defaults
+  - r
+  - bioconda
+  - conda-forge
+dependencies:
+  - bleach=1.4.2=py36_0
+  - ca-certificates=2017.11.5=0
+  - certifi=2017.11.5=py36_0
+  - dbus=1.10.22=0
+  - samtools=4.1.2=py36_0
+  ...
+prefix: /path/to/your/miniconda3/envs/interactive-analysis
+----
++
+The `prefix` line shows a local path and is non-essential. It can be removed when publishing.
+
+2. Copy the file to the target machine.
+
+3. Create a new environment using the file. We just make a local copy for demonstration, but you could equally execute this on a different system.
++
+[source,bash]
+----
+conda env create -n interactive-analysis-copy -f environment.yaml
+----
+
+After this on the other system you can normally `source activate` the new environment and work with.
+
+
+== Removing & Renaming Environments
+
+Let's remove the copy of the "interactive-analysis" environment we just created:
+
+[source,bash]
+----
+$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis
+interactive-analysis-copy  /path/to/your/miniconda3/envs/interactive-analysis-copy
+$ conda env remove -n interactive-analysis-copy
+[source,bash]
+...
+$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis
+----
+
+There is no dedicated renaming command. Instead, renaming an environment is done by "cloning" it and removing the original:
+
+[source,bash]
+----
+conda create --clone interactive-analysis -n my-nature-publication
+conda remove -n interactive-analysis
+conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication
+----
+
+== Limitations
+
+Conda is easy to install and use, but also has its limitations.
+
+  * Of each package only a single version can be installed.
+  * `conda install` can be slow or may even not terminate.
+  * `conda install` may fail to find non-conflicting package versions.
+  * Dependencies in the "build recipes" can be too narrow or too wide.
+  * Contributing can be hard
+    - Different channels provide different tooling for contributing packages ("continuous integration").
+  * Packages _can_ get lost! (So far for reproducibility!)
+
+=== Package Loss?
+
+Even though Conda is a big step forward in terms of bioinformatic reproducibility, it is not the final solution. Package version can get lost, because
+
+  * Complete rebuild is necessary due to technical reasons, but older Python, R or Perl versions are not considered anymore
+  * Rather general packages can get moved to more general channels (e.g. Bioconda -> Conda Forge), but there may be differences in Python, R, or Perl versions
+
+How to cope with these problems?
+
+.. There is `bioconda-legacy` channel. *Some* outdated packages can still be present there. Add the channel to your channel list with
++
+[source,bash]
+----
+conda config --add channels bioconda-legacy
+----
+
+.. It may be safe to upgrade to larger versions of R, Perl, Python, as long as the bioinformatic packages remain at the same version.
++
+To achieve this you need to remove version constraints from the exported environemnt YAML file.
++
+[source,yaml]
+----
+name: interactive-analysis
+channels:
+  - defaults
+  - r
+  - bioconda
+  - conda-forge
+dependencies:
+  - ca-certificates             <1>
+  - r-base=3.3.*                <2>
+  - r-lattice=0.20_34           <3>
+  ...
+----
+<1> Left out the complete version. Package has little influence on the analysis.
+<2> Changed from "=r3.3.2=5". The Conda build number is almost certainly completely irrelevant. The R patch number is very likely also irrelevant, but R-bugs may be fixed.
+<3> Left out the R version completely and let Conda choose the right version.
++
+See the https://conda.io/docs/user-guide/tasks/build-packages/package-spec.html[Conda documentation] for a complete description of how package versions can be matched.
+
+.. Build old package versions locally. Get the build-description and use `conda-build` (`conda install conda-build`).
+
+.. Make a container with your conda environment.
+
+.. Keep a local channel copy of the packages.
+
+.. Ask your institution to keep a local channel with all packages.
+
+Only by testing your workflows and comparing results before and after the change, you can be certain that nothing or only irrelevant output has changed!
+
+=== Conda in Containers
+
+Instead of installing Conda directly on the your system, you may also want to use Conda to set up the software stack in a Container.
+
+Use container technology (Docker, Singularity, Rocket, ...)
+
+
+== Summary
+
+  * Among the large number of packaging systems, Conda has probably the largest community of bioinformatic package contributors.
+  * Conda makes it easy and fast to set up environments.
+  * You can contribute packages you need or even publish your own packages.
+  * Beware: Conda is not the holy grail of technical reproducibility.
+  * Use Conda, maybe in combination with Singularity, right from the start of your analysis.
