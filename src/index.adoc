@@ -400,7 +400,9 @@ Jupyter notebook will show a URL on the standard output and open it in a browser
 
 image::Jupyter1.png[Jupyter]
 
-\... and then enter arbitary Python 3 expressions.
+\... and then enter arbitary Python 3 expressions, such as
+
+image::Jupyter2.png[Plot]
 
 ==== Oops!
 

@@ -2,7 +2,7 @@
 
 A short presentation and course given for a group of molecular biotechnology master students in Heidelberg, Germany.
 
-
+Have a look at https://dkfz-odcf.github.io/conda-course/ to see the presentation.
 
 ## Build Instructions
 
