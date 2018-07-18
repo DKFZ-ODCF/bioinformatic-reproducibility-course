@@ -32,6 +32,8 @@ asciidoctor {
     sourceDir = file("src")
     outputDir = file("build")
 
+    attributes 'source-highlighter': 'coderay'
+
     resources {
         from("src") {
             include("*.png")
