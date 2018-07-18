@@ -162,8 +162,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="122.12482"
-     inkscape:cy="680.09307"
+     inkscape:cx="149.6501"
+     inkscape:cy="558.87476"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -172,7 +172,9 @@
      inkscape:window-height="1025"
      inkscape:window-x="1920"
      inkscape:window-y="-3"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -181,7 +183,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -309,83 +311,108 @@
          id="tspan4623"
          x="76.171806"
          y="166.03792"
-         style="font-size:4.93888903px;stroke-width:0.26458332px">Jupyter Notebook</tspan><tspan
+         style="font-size:4.93888903px;stroke-width:0.26458332px">Git</tspan><tspan
          sodipodi:role="line"
          x="76.171806"
          y="172.21153"
          style="font-size:4.93888903px;stroke-width:0.26458332px"
-         id="tspan4627">iPython</tspan><tspan
+         id="tspan79">Snakemake</tspan><tspan
          sodipodi:role="line"
          x="76.171806"
          y="178.38515"
          style="font-size:4.93888903px;stroke-width:0.26458332px"
-         id="tspan4629">Org-Mode</tspan><tspan
+         id="tspan81">CWL</tspan><tspan
          sodipodi:role="line"
          x="76.171806"
          y="184.55875"
          style="font-size:4.93888903px;stroke-width:0.26458332px"
-         id="tspan4631">Sweave</tspan><tspan
+         id="tspan70">Jupyter Notebook</tspan><tspan
          sodipodi:role="line"
          x="76.171806"
          y="190.73236"
          style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan4627">iPython</tspan><tspan
+         sodipodi:role="line"
+         x="76.171806"
+         y="196.90598"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan4629">Org-Mode</tspan><tspan
+         sodipodi:role="line"
+         x="76.171806"
+         y="203.07959"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan4631">Sweave</tspan><tspan
+         sodipodi:role="line"
+         x="76.171806"
+         y="209.2532"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
          id="tspan4633">...</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.93888906px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="8.0180845"
        y="54.586536"
        id="text4637"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         id="tspan4635"
          x="8.0180845"
          y="54.586536"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;">Containers</tspan><tspan
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan4639">Homebrew</tspan><tspan
          sodipodi:role="line"
          x="8.0180845"
-         y="61.862579"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;"
-         id="tspan4639">Conda</tspan><tspan
+         y="60.760147"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan76">VirtualEnv</tspan><tspan
          sodipodi:role="line"
          x="8.0180845"
-         y="69.138618"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;"
-         id="tspan4641">Homebrew</tspan><tspan
+         y="66.933762"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan78">Conda</tspan><tspan
          sodipodi:role="line"
          x="8.0180845"
-         y="76.414658"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;"
-         id="tspan4643">BioLinux</tspan><tspan
+         y="73.107368"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan4643">BioContainers</tspan><tspan
          sodipodi:role="line"
          x="8.0180845"
-         y="83.690704"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;"
+         y="79.280983"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan74">BioLinux</tspan><tspan
+         sodipodi:role="line"
+         x="8.0180845"
+         y="85.45459"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
          id="tspan4645">...</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.93888906px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="168.91435"
-       y="59.664658"
+       y="54.902153"
        id="text4649"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan4647"
          x="168.91435"
-         y="59.664658"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;">Flocker</tspan><tspan
+         y="54.902153"
+         style="font-size:4.93888903px;stroke-width:0.26458332px">Databases</tspan><tspan
          sodipodi:role="line"
          x="168.91435"
-         y="66.940704"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;"
+         y="61.075764"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
          id="tspan4651">Object Store</tspan><tspan
          sodipodi:role="line"
          x="168.91435"
-         y="74.216743"
-         style="stroke-width:0.26458332px;font-size:4.93888906px;"
-         id="tspan4653">Databases</tspan></text>
+         y="67.249374"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan80">Flocker</tspan><tspan
+         sodipodi:role="line"
+         x="168.91435"
+         y="73.422989"
+         style="font-size:4.93888903px;stroke-width:0.26458332px"
+         id="tspan4653" /></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.365;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:3;stroke-dasharray:none;marker-end:url(#Arrow2Lend)"
        d="M 76.171816,105.36775 69.222807,97.082392"
@@ -407,5 +434,17 @@
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
-  </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot82"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:22px;line-height:125%;letter-spacing:0px;word-spacing:0px"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><flowRegion
+         id="flowRegion84"><rect
+           id="rect86"
+           width="2.0203052"
+           height="38.385796"
+           x="82.832512"
+           y="27.514322" /></flowRegion><flowPara
+         id="flowPara88" /></flowRoot>  </g>
 </svg>

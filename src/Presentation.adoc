@@ -1,8 +1,13 @@
 = Conda for Convenience and Reproducibility
+Philip R. Kensche
+v1.0, 2018-07-19
+:doctype: book
+:docinfo:
+
 
 == Bioinformatic Reproducibility
 
-image::reproducibility.png[Reproducibility,width=500,role=center]
+image::reproducibility.png[Reproducibility,width=500]
 
 We will focus here on software deployment.
 
@@ -69,6 +74,7 @@ node "new system" as new {
 @enduml
 ....
 
+<<<
 === ... to scale out
 [plantuml]
 ....
@@ -114,26 +120,6 @@ cloud "de.NBI Cloud" {
   * Pre-installed "department software stack".
   * Where to download the correct versions and how to compile them?
 
-== Reproducible Research
-
-  * Document all important factors of an experiment.
-  * In the lab, exact reproducibility is impossible.
-  * In bioinformatics: exact reproducibility is achievable, but ...
-
-=== How useful is exact reproducibility?
-
-  * *Robust* results?
-    - If not reproducible with a slightly (?) different software version
-  * Try out different software tools.
-    - Differences may be larger than many other factors influencing the data.
-  * Look for artifacts in your plots.
-  * Consider circumstantial evidence
-    - e.g. manual analysis and literature search on candidates
-  * Experimental validation!
-
-TIP: Keep this in mind to scale your expectations when dealing with bioinformatic reproducibility!
-
-
 === Software Deployment
 
 There are uncontrollable factors:
@@ -149,31 +135,28 @@ NOTE: Implement reproducibility features as early as possible!
 == Requirements
 
 * Quick and correct software deployment
-* User-space installation without administrator rights
-* Manage multiple "environments"
+* Simple user-space installation without administrator rights
+* Manage multiple independent tool sets
 * Lots of packages ... maintained by s.b. else ;-D
 * Easy sharing of workflows
 * Possible to publish of *your* tools
 
 === Enter https://conda.io/docs/[Conda]
 
-* https://www.anaconda.com/[Anaconda Inc.]
+* https://www.anaconda.com/[Anaconda Inc.] (https://github.com/ContinuumIO[Continuum Analytics Inc.])
 * Command-line tool based on Python (2.7, 3.6)
 * Anaconda and https://conda.io/miniconda.html[Miniconda] distributions
+* For Linux > 9000 packages, > 86.000 versions (including those for bioinformatics)
   - Linux
   - MacOS
   - Windows
-* For Linux > 9000 packages, > 86.000 versions (including those for bioinformatics)
-* There is a Users Guide at https://conda.io/docs/user-guide
 
 === ... and https://bioconda.github.io/[BioConda]
 
-* Community-driven
+* Community-driven package repository (channel)
  - > 4.000 bioinformatic-related packages, > 18.000 versions
  - BioConda https://github.com/bioconda/bioconda-recipes[Recipes]
  - Most packages available for Linux
-* Automatic building of Docker and Singularity containers via https://conda.io/docs/[BioContainers]
-* There is a https://www.nature.com/articles/s41592-018-0046-7[paper] (https://doi.org/10.1038/s41592-018-0046-7)
 
 == Using Conda
 
@@ -187,9 +170,7 @@ $ bash Miniconda3-latest-Linux-x86_64.sh
 
 WARNING: Choose a place where you have a enough free space. Environments are (by default) also installed there and each can take up 100s of megabytes.
 
-The installation can update your environment setup scripts for you (e.g. `~/.bashrc`).
-
-Now start conda for the first time and get some information about the interface:
+Now start conda and get some information about the interface:
 
 [source,bash]
 ----
@@ -258,7 +239,7 @@ $ conda config --add channels defaults     <1>
 $ conda config --add channels conda-forge
 $ conda config --add channels bioconda
 ----
-<1>  Ananconda Inc.'s default channel
+<1>  Ananconda Inc.'s default channels
 
 Each command adds a channel with higher priority than the previous commands.
 
@@ -268,10 +249,10 @@ Now the output of ...
 ----
 $ conda info
 ...
-           channel URLs : https://conda.anaconda.org/bioconda/linux-64
-                          https://conda.anaconda.org/bioconda/noarch
-                          https://conda.anaconda.org/conda-forge/linux-64
-                          https://conda.anaconda.org/conda-forge/noarch
+           channel URLs : https://conda.anaconda.org/bioconda/linux-64    <1>
+                          https://conda.anaconda.org/bioconda/noarch      <1>
+                          https://conda.anaconda.org/conda-forge/linux-64 <1>
+                          https://conda.anaconda.org/conda-forge/noarch   <1>
                           https://repo.continuum.io/pkgs/free/linux-64
                           https://repo.continuum.io/pkgs/free/noarch
                           https://repo.continuum.io/pkgs/r/linux-64
@@ -282,8 +263,7 @@ $ conda info
                           https://conda.anaconda.org/r/noarch
 ...
 ----
-
-\... will show the updated channel list with the "bioconda" and "conda-forge channels.
+<1> \... will show the updated channel list with the "bioconda" and "conda-forge channels.
 
 
 === Finding Packages
@@ -296,6 +276,7 @@ usage: conda search [-h] [-n ENVIRONMENT | -p PATH] [-i] [-C]
                     [-c CHANNEL] [--override-channels] [--json] [--debug]
                     [--verbose] [--use-local] [-k] [--envs]
 ...
+
 $ conda search samtools
 Loading channels: done
 # Name                  Version           Build  Channel
@@ -327,11 +308,9 @@ Note that the build version sometimes is pretty simple, but sometimes rather cry
   * compile parameters
   * dependencies (numpy, ...)
   * interpreters (Perl, Python, R, ...)
-  * commit hashes
+  * commit hashes (where you can hope they produce the same results)
 
-Commit hashes are shown in the "Build" column may indicate that not exactly the same code version was used -- hopefully with less bugs and the same functionality.
-
-You can also search for specific package versions and builds and with globs (`*`) to search package names.
+You can also search for specific package versions and builds:
 
 [source,bash]
 ----
@@ -342,6 +321,7 @@ samtools                 0.1.19               0  bioconda
 samtools                 0.1.19               1  bioconda
 samtools                 0.1.19               2  bioconda
 samtools                 0.1.19               3  bioconda
+
 $ conda search '*samtools'       <1>
 Loading channels: done
 # Name                  Version           Build  Channel
@@ -430,7 +410,7 @@ This is not only a demonstration of the daily life in bioinformatics but also th
 
 [source,bash]
 ----
-pip install jupyter -U
+$ pip install jupyter -U
 ----
 
 \... an up-to-date Jupyter Notebook package is installed in the environment!
@@ -441,7 +421,7 @@ After you are done with your work, you can do ...
 
 [source,bash]
 ----
-source deactivate
+$ source deactivate
 ----
 
 \... to restore you original, Conda-free environment.
@@ -453,7 +433,7 @@ How to transfer an environment to a different machine?
 1. Export the environment specification into a YAML file.
 +
 ```bash
-conda env export -n interactive-analysis > environment.yaml
+$ conda env export -n interactive-analysis > environment.yaml
 ```
 +
 The resulting YAML file looks like this:
@@ -484,7 +464,7 @@ The `prefix` line shows a local path and is non-essential. It can be removed whe
 +
 [source,bash]
 ----
-conda env create -n interactive-analysis-copy -f environment.yaml
+$ conda env create -n interactive-analysis-copy -f environment.yaml
 ----
 
 After this on the other system you can normally `source activate` the new environment.
@@ -502,9 +482,9 @@ $ conda env list
 base                       /path/to/your/miniconda3
 interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis
 interactive-analysis-copy  /path/to/your/miniconda3/envs/interactive-analysis-copy
+
 $ conda env remove -n interactive-analysis-copy
-[source,bash]
-...
+
 $ conda env list
 # conda environments:
 #
@@ -518,9 +498,9 @@ There is no dedicated renaming command. Instead, renaming an environment is done
 
 [source,bash]
 ----
-conda create --clone interactive-analysis -n my-nature-publication
-conda remove -n interactive-analysis
-conda env list
+$ conda create --clone interactive-analysis -n my-nature-publication
+$ conda remove -n interactive-analysis
+$ conda env list
 # conda environments:
 #
 base                       /path/to/your/miniconda3
@@ -557,7 +537,7 @@ Add the channel to your channel list with
 
 [source,bash]
 ----
-conda config --add channels bioconda-legacy
+$ conda config --add channels bioconda-legacy
 ----
 
 ==== Upgrade to newer R, Perl, Python
@@ -597,3 +577,12 @@ dependencies:
   * You can contribute recipes for packages you need or your own packages.
   * Conda can well be combined with container technology, like https://singularity.lbl.gov/[Singularity] or https://www.docker.com/[Docker]
      - at the cost of additional complexity
+     * BioConda has automatic building of Docker and Singularity containers via https://conda.io/docs/[BioContainers]
+
+
+TIP: Implement reproducibility features as early as possible!
+
+== Some References
+
+* Conda User's Guide: https://conda.io/docs/user-guide
+* BioConda article: https://www.nature.com/articles/s41592-018-0046-7

@@ -3,3 +3,4 @@ build/
 src/diag-*.png
 src/diag-*.png.cache
 *.ipynb
+gradle.properties
