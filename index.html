@@ -954,6 +954,21 @@ $ jupyter notebook</code></pre>
 <div class="paragraph">
 <p>... and then enter arbitary Python 3 expressions, such as</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as sp
+import math
+
+mu = 0
+variance = 1
+sigma = math.sqrt(variance)
+x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
+plt.plot(x,sp.norm.pdf(x, mu, sigma))
+plt.show()</code></pre>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="Jupyter2.png" alt="Plot">
@@ -1281,7 +1296,7 @@ Implement reproducibility features as early as possible!
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2018-07-18 16:29:19 MESZ
+Last updated 2018-07-18 16:40:25 MESZ
 </div>
 </div>
 </body>
