@@ -44,10 +44,10 @@ asciidoctor {
 
 gitPublish {
     // where to publish to (repo must exist)
-    repoUri = 'git@github.com/DKFZ-ODCF/conda-course.git'
+    repoUri = 'https://github.com/DKFZ-ODCF/conda-course.git'
 
     // branch will be created if it doesn't exist
-    branch = 'master'
+    branch = 'gh-pages'
 
     // what to publish, this is a standard CopySpec
     contents {

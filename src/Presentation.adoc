@@ -517,7 +517,7 @@ Conda is easy to install and use, but also has its limitations.
   * Dependencies in the "build recipes" can be too narrow or too wide.
   * Contributing can be hard
     - Different channels provide different tooling for contributing packages ("continuous integration").
-  * Packages _can_ get lost! (So far for reproducibility!)
+  * *Packages can get lost!* (So far for reproducibility!)
 
 === Package Loss?
 
