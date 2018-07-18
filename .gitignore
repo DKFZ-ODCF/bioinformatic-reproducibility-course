@@ -4,3 +4,4 @@ src/diag-*.png
 src/diag-*.png.cache
 *.ipynb
 gradle.properties
+.idea/workspace.xml

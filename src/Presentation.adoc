@@ -584,5 +584,5 @@ TIP: Implement reproducibility features as early as possible!
 
 == Some References
 
-* Conda User's Guide: https://conda.io/docs/user-guide
-* BioConda article: https://www.nature.com/articles/s41592-018-0046-7
+* Conda User's Guide @ https://conda.io/docs/user-guide
+* BioConda article @ https://www.nature.com/articles/s41592-018-0046-7
