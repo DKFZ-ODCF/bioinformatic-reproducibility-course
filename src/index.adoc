@@ -362,7 +362,7 @@ Let's create a new environment with another great tool for reproducible research
 
 [source,bash]
 ----
-conda create -n interactive-analysis jupyter-notebook
+conda create -n interactive-analysis jupyter-notebook scipy
 ----
 
 First this shows you which exact versions and builds will be installed. For a single tool a large number of dependencies may be pulled in. This request will install about 125 MB of tools! Many of them are likely not used or needed by you.
