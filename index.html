@@ -1322,6 +1322,77 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_virtualization_containers">Virtualization &amp; Containers</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Conda uses host-OS software that runs on the host system.</p>
+</li>
+<li>
+<p>Virtualization separates host-OS and analysis environment.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Separation in terms of software and execution environment</p>
+</li>
+<li>
+<p>Virtualization provides completely separation in independent OS</p>
+<div class="imageblock">
+<div class="content">
+<img src="13742_2016_135_Fig5_HTML.jpg" alt="Virtualization" width="https://dx.doi.org/10.1186%2Fs13742-016-0135-4">
+</div>
+</div>
+</li>
+<li>
+<p>Containerization uses the host-operating system but provides separate environment for software deployment and execution</p>
+<div class="imageblock">
+<div class="content">
+<img src="13742_2016_135_Fig6_HTML.jpg" alt="Containers" width="https://dx.doi.org/10.1186%2Fs13742-016-0135-4">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Conda as a tool for managing software dependencies can easily be combined with virtualization technologies.</p>
+</li>
+<li>
+<p>Virtualization technologies</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.qemu.org/">KVM/QEMU</a></p>
+</li>
+<li>
+<p><a href="https://www.virtualbox.org/">VirtualBox</a></p>
+</li>
+<li>
+<p><a href="https://www.vmware.com/">VMWare</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Container technologies</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.docker.com/">Docker</a></p>
+</li>
+<li>
+<p><a href="https://singularity.lbl.gov/">Singularity</a></p>
+</li>
+<li>
+<p><a href="https://coreos.com/rkt/docs/latest/">Rkt</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1334,7 +1405,7 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <p>Conda has probably the largest community of bioinformatic package contributors.</p>
 </li>
 <li>
-<p>Conda makes it easy and fast to set up environments.</p>
+<p>With Conda it is easy and fast to set up environments.</p>
 </li>
 <li>
 <p>You can contribute recipes for packages you need or your own packages.</p>
@@ -1346,11 +1417,11 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <li>
 <p>at the cost of additional complexity</p>
 </li>
-</ul>
-</div>
-</li>
 <li>
 <p>BioConda has automatic building of Docker and Singularity containers via <a href="https://conda.io/docs/">BioContainers</a></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1379,6 +1450,28 @@ Implement reproducibility features as early as possible!
 <li>
 <p>BioConda article @ <a href="https://www.nature.com/articles/s41592-018-0046-7" class="bare">https://www.nature.com/articles/s41592-018-0046-7</a></p>
 </li>
+<li>
+<p>NBIS Reproducible Science Course @ <a href="https://nbis-reproducible-research.readthedocs.io/en/latest/" class="bare">https://nbis-reproducible-research.readthedocs.io/en/latest/</a></p>
+</li>
+<li>
+<p>Source code revisioning with Git @ <a href="https://git-scm.com/" class="bare">https://git-scm.com/</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Git Book @ <a href="https://git-scm.com/book/en/v2" class="bare">https://git-scm.com/book/en/v2</a></p>
+</li>
+<li>
+<p>Github Flow @ <a href="https://guides.github.com/introduction/flow/" class="bare">https://guides.github.com/introduction/flow/</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://reproduciblescience.org/directory">reproduciblescience.org</a></p>
+</li>
+<li>
+<p>Virtualization &amp; Containerization images from <a href="https://dx.doi.org/10.1186%2Fs13742-016-0135-4">Piccolo &amp; Framton, 2016</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -1387,7 +1480,7 @@ Implement reproducibility features as early as possible!
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2018-07-18 16:40:25 MESZ
+Last updated 2018-07-19 09:01:47 MESZ
 </div>
 </div>
 </body>
