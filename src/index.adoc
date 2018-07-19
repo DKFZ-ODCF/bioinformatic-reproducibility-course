@@ -119,12 +119,14 @@ cloud "de.NBI Cloud" {
   * Many software tools in specific versions.
   * Pre-installed "department software stack".
   * Where to download the correct versions and how to compile them?
+  * Do this 1000 times?
 
 === Software Deployment
 
 There are uncontrollable factors:
 
 * Software on the host operating system evolves
+  - Windows, Mac, dozens of Linux distributions, in different versions ...
 * Bioinformatic software packages may get lost
 * You don't want to waste you time with this technical stuff
   - ... there are also the other reproducibility aspects
@@ -143,7 +145,7 @@ NOTE: Implement reproducibility features as early as possible!
 
 === Enter https://conda.io/docs/[Conda]
 
-* https://www.anaconda.com/[Anaconda Inc.] (https://github.com/ContinuumIO[Continuum Analytics Inc.])
+* Open source software by https://www.anaconda.com/[Anaconda Inc.] (https://github.com/ContinuumIO[Continuum Analytics Inc.])
 * Command-line tool based on Python (2.7, 3.6)
 * Anaconda and https://conda.io/miniconda.html[Miniconda] distributions
 * For Linux > 9000 packages, > 86.000 versions (including those for bioinformatics)
@@ -164,11 +166,12 @@ NOTE: Implement reproducibility features as early as possible!
 
 [source,bash]
 ----
-$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh <1>
 $ bash Miniconda3-latest-Linux-x86_64.sh
 ----
+<1> alternatively take `curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh` or just your browser.
 
-WARNING: Choose a place where you have a enough free space. Environments are (by default) also installed there and each can take up 100s of megabytes.
+WARNING: Choose a place where you have a enough free space. Environments are (by default) also installed there and each can take up 100s of megabytes. E.g. use `df -h` to get information about free space.
 
 Now start conda and get some information about the interface:
 
@@ -305,16 +308,18 @@ The output shows which package versions match the search expression and are avai
 
 Note that the build version sometimes is pretty simple, but sometimes rather cryptic. Build versions represent the same package but with changed
 
-  * compile parameters
-  * dependencies (numpy, ...)
-  * interpreters (Perl, Python, R, ...)
-  * commit hashes (where you can hope they produce the same results)
+  * Compile parameters
+  * Dependencies (numpy, ...)
+  * Interpreters (Perl, Python, R, ...)
+  * Commit hashes (where you can hope they produce the same results)
+    - Commit hashes are identifiers given to individually tracked versions of a software
+    - No officially released versions
 
 You can also search for specific package versions and builds:
 
 [source,bash]
 ----
-$ conda search samtools==0.1.19
+$ conda search samtools==0.1.19  <1>
 Loading channels: done
 # Name                  Version           Build  Channel
 samtools                 0.1.19               0  bioconda
@@ -322,7 +327,7 @@ samtools                 0.1.19               1  bioconda
 samtools                 0.1.19               2  bioconda
 samtools                 0.1.19               3  bioconda
 
-$ conda search '*samtools'       <1>
+$ conda search '*samtools'       <2>
 Loading channels: done
 # Name                  Version           Build  Channel
 bioconductor-rsamtools          1.22.0        r3.2.2_0  bioconda
@@ -338,7 +343,8 @@ samtools                        0.1.12               0  bioconda
 samtools                        0.1.12               1  bioconda
 ...
 ----
-<1> the quotes prevent globing the asterisk by the shell
+<1> You can also try `conda search 'samtools>=1'`.
+<2> The quotes prevent globing the asterisk by the shell.
 
 TIP: Check the Conda documentation on https://conda.io/docs/user-guide/tasks/build-packages/package-spec.html[package specification] for a description of the match pattern if you need to do complex searches.
 
@@ -362,7 +368,7 @@ Let's create a new environment with another great tool for reproducible research
 
 [source,bash]
 ----
-conda create -n interactive-analysis jupyter-notebook scipy
+$ conda create -n interactive-analysis jupyter-notebook scipy
 ----
 
 First this shows you which exact versions and builds will be installed. For a single tool a large number of dependencies may be pulled in. This request will install about 125 MB of tools! Many of them are likely not used or needed by you.
@@ -382,7 +388,7 @@ Let's first try
 
 [source,bash]
 ----
-$ jupyter
+$ jupyter notebook
 bash: jupyter: Command not found
 ----
 
@@ -418,6 +424,8 @@ plt.show()
 ----
 
 image::Jupyter2.png[Plot]
+
+NOTE: Jupyter provides kernels as programming language backends. A complete list can be found at https://github.com/jupyter/jupyter/wiki/Jupyter-kernels.
 
 ==== Oops!
 
