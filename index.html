@@ -1192,7 +1192,7 @@ Jupyter provides kernels as programming language backends. A complete list can b
 </ol>
 </div>
 <div class="paragraph">
-<p>After this on the other system you can normally <code>source activate</code> the new environment.</p>
+<p>After this you can <code>source activate</code> the new environment!</p>
 </div>
 </div>
 <div class="sect2">
@@ -1259,9 +1259,12 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <p>Dependencies in the "build recipes" can be too narrow or too wide.</p>
 </li>
 <li>
-<p>Contributing can be hard</p>
+<p>Contributing recipes can be hard</p>
 <div class="ulist">
 <ul>
+<li>
+<p>Not all software is accepted by all channels.</p>
+</li>
 <li>
 <p>Different channels provide different tooling for contributing packages ("continuous integration").</p>
 </li>
@@ -1279,15 +1282,23 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <ul>
 <li>
 <p>Complete rebuild of channels</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>May result in updated build dependencies (Perl, R, Python)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Packages get moved between channels (e.g. Bioconda &lt;&#8594; Conda Forge)</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>May result in updated build dependencies (Perl, R, Python)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Packages get completely removed</p>
@@ -1303,6 +1314,14 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <p><strong>Some</strong> outdated packages can still be present there.</p>
 </div>
 <div class="paragraph">
+<p>Search 'bioconda-legacy' without adding it to the channel queue:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda search -c bioconda-legacy 'r-getopt==1.20.0=r3.2.2_0'</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Add the channel to your channel list with</p>
 </div>
 <div class="listingblock">
@@ -1316,8 +1335,15 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <div class="paragraph">
 <p>It may be safe to upgrade to larger versions of R, Perl, Python, as long as the bioinformatic packages remain at the same version.</p>
 </div>
-<div class="paragraph">
-<p>To achieve this you need to remove version constraints from the exported environemnt YAML file and let Conda find a suited package version:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove version constraints from the exported environemnt YAML file</p>
+</li>
+<li>
+<p>Let Conda find a suited package version</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1354,6 +1380,13 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <ul>
 <li>
 <p>Build a local version of the package with <code>conda build</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>May require old package recipes from the channel&#8217;s Github repositories</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Keep a local channel copy?</p>
@@ -1537,7 +1570,7 @@ Implement reproducibility features as early as possible!
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2018-07-19 09:58:00 MESZ
+Last updated 2018-07-19 10:09:55 MESZ
 </div>
 </div>
 </body>
