@@ -615,11 +615,11 @@ image::13742_2016_135_Fig6_HTML.png[Containers]
   * You can contribute recipes for packages you need or your own packages.
   * Conda can well be combined with container technology, like https://singularity.lbl.gov/[Singularity] or https://www.docker.com/[Docker]
      - at the cost of additional complexity
-     - BioConda has automatic building of Docker and Singularity containers via https://conda.io/docs/[BioContainers]
+     - BioConda has automatic building of Docker and Singularity containers to https://conda.io/docs/[BioContainers]
 
 TIP: Implement reproducibility features as early as possible!
 
-== Some References
+== Further Material
 
 * Conda User's Guide @ https://conda.io/docs/user-guide
 * BioConda article @ https://www.nature.com/articles/s41592-018-0046-7
@@ -628,6 +628,9 @@ TIP: Implement reproducibility features as early as possible!
   - Git Book @ https://git-scm.com/book/en/v2
   - Github Flow @ https://guides.github.com/introduction/flow/
 * https://reproduciblescience.org/directory[reproduciblescience.org]
-* Virtualization & Containerization images from https://dx.doi.org/10.1186%2Fs13742-016-0135-4[Piccolo & Framton, 2016]
 * Miniconda @ https://conda.io/miniconda.html
 * BioConda Recipes @ https://github.com/bioconda/bioconda-recipes
+
+== References
+
+* Virtualization & Containerization images from https://dx.doi.org/10.1186%2Fs13742-016-0135-4[Piccolo & Framton, 2016]
