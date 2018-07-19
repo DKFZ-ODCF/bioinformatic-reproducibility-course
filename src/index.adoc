@@ -587,15 +587,38 @@ dependencies:
   * Keep a local channel copy?
   * Use containers or virtual machines to avoid having to reinstall the Conda environment
 
+==== Virtualization & Containers
+
+  * Conda uses host-OS software that runs on the host system.
+  * Virtualization separates host-OS and analysis environment.
+    - Separation in terms of software and execution environment
+    - Virtualization provides completely separation in independent OS
++
+image::13742_2016_135_Fig5_HTML.jpg[Virtualization, https://dx.doi.org/10.1186%2Fs13742-016-0135-4]
+    - Containerization uses the host-operating system but provides separate environment for software deployment and execution
++
+image::13742_2016_135_Fig6_HTML.jpg[Containers, https://dx.doi.org/10.1186%2Fs13742-016-0135-4]
+  * Conda as a tool for managing software dependencies can easily be combined with virtualization technologies.
+  * Virtualization technologies
+    - https://www.qemu.org/[KVM/QEMU]
+    - https://www.virtualbox.org/[VirtualBox]
+    - https://www.vmware.com/[VMWare]
+  * Container technologies
+    - https://www.docker.com/[Docker]
+    - https://singularity.lbl.gov/[Singularity]
+    - https://coreos.com/rkt/docs/latest/[Rkt]
+
+
+
+
 == Summary
 
   * Conda has probably the largest community of bioinformatic package contributors.
-  * Conda makes it easy and fast to set up environments.
+  * With Conda it is easy and fast to set up environments.
   * You can contribute recipes for packages you need or your own packages.
   * Conda can well be combined with container technology, like https://singularity.lbl.gov/[Singularity] or https://www.docker.com/[Docker]
      - at the cost of additional complexity
-     * BioConda has automatic building of Docker and Singularity containers via https://conda.io/docs/[BioContainers]
-
+     - BioConda has automatic building of Docker and Singularity containers via https://conda.io/docs/[BioContainers]
 
 TIP: Implement reproducibility features as early as possible!
 
@@ -603,3 +626,9 @@ TIP: Implement reproducibility features as early as possible!
 
 * Conda User's Guide @ https://conda.io/docs/user-guide
 * BioConda article @ https://www.nature.com/articles/s41592-018-0046-7
+* NBIS Reproducible Science Course @ https://nbis-reproducible-research.readthedocs.io/en/latest/
+* Source code revisioning with Git @ https://git-scm.com/
+  - Git Book @ https://git-scm.com/book/en/v2
+  - Github Flow @ https://guides.github.com/introduction/flow/
+* https://reproduciblescience.org/directory[reproduciblescience.org]
+* Virtualization & Containerization images from https://dx.doi.org/10.1186%2Fs13742-016-0135-4[Piccolo & Framton, 2016]
