@@ -168,6 +168,7 @@ NOTE: Implement reproducibility features as early as possible!
 ----
 $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh <1>
 $ bash Miniconda3-latest-Linux-x86_64.sh
+$ source $HOME/.bashrc
 ----
 <1> alternatively take `curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh` or just your browser.
 

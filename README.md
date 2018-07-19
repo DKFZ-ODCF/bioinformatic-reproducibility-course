@@ -1,6 +1,6 @@
 # Conda for Convenience and Reproducibility
 
-A short presentation and course given for a group of molecular biotechnology master students in Heidelberg, Germany.
+A short presentation (1/2 h) or course (probably 1.5 h) given for a group of molecular biotechnology master students in Heidelberg, Germany.
 
 Have a look at https://dkfz-odcf.github.io/conda-course/ to see the presentation.
 
@@ -33,4 +33,4 @@ You can publish your changes to the `gh-pages` branch with
 
 ## Versions
 
- * 1.0: Held 18th July 2018
+ * 1.0.0: Held 18th July 2018
