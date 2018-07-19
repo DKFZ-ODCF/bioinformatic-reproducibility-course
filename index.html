@@ -589,6 +589,9 @@ table.CodeRay td.code>pre{padding:0}
 <li>
 <p>Where to download the correct versions and how to compile them?</p>
 </li>
+<li>
+<p>Do this 1000 times?</p>
+</li>
 </ul>
 </div>
 <div class="sect2">
@@ -600,6 +603,13 @@ table.CodeRay td.code>pre{padding:0}
 <ul>
 <li>
 <p>Software on the host operating system evolves</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Windows, Mac, dozens of Linux distributions, in different versions &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Bioinformatic software packages may get lost</p>
@@ -664,7 +674,7 @@ Implement reproducibility features as early as possible!
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.anaconda.com/">Anaconda Inc.</a> (<a href="https://github.com/ContinuumIO">Continuum Analytics Inc.</a>)</p>
+<p>Open source software by <a href="https://www.anaconda.com/">Anaconda Inc.</a> (<a href="https://github.com/ContinuumIO">Continuum Analytics Inc.</a>)</p>
 </li>
 <li>
 <p>Command-line tool based on Python (2.7, 3.6)</p>
@@ -723,9 +733,16 @@ Implement reproducibility features as early as possible!
 <h3 id="_install_miniconda">Install Miniconda</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+<pre class="CodeRay highlight"><code data-lang="bash">$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh <b class="conum">(1)</b>
 $ bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>alternatively take <code>curl <a href="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh" class="bare">https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh</a> -o Miniconda3-latest-Linux-x86_64.sh</code> or just your browser.</p>
+</li>
+</ol>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -734,7 +751,7 @@ $ bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
 <div class="title">Warning</div>
 </td>
 <td class="content">
-Choose a place where you have a enough free space. Environments are (by default) also installed there and each can take up 100s of megabytes.
+Choose a place where you have a enough free space. Environments are (by default) also installed there and each can take up 100s of megabytes. E.g. use <code>df -h</code> to get information about free space.
 </td>
 </tr>
 </table>
@@ -904,16 +921,26 @@ samtools                    1.8      h46bd0b3_5  bioconda</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>compile parameters</p>
+<p>Compile parameters</p>
 </li>
 <li>
-<p>dependencies (numpy, &#8230;&#8203;)</p>
+<p>Dependencies (numpy, &#8230;&#8203;)</p>
 </li>
 <li>
-<p>interpreters (Perl, Python, R, &#8230;&#8203;)</p>
+<p>Interpreters (Perl, Python, R, &#8230;&#8203;)</p>
 </li>
 <li>
-<p>commit hashes (where you can hope they produce the same results)</p>
+<p>Commit hashes (where you can hope they produce the same results)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Commit hashes are identifiers given to individually tracked versions of a software</p>
+</li>
+<li>
+<p>No officially released versions</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -922,7 +949,7 @@ samtools                    1.8      h46bd0b3_5  bioconda</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ conda search samtools==0.1.19
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda search samtools==0.1.19  <b class="conum">(1)</b>
 Loading channels: done
 # Name                  Version           Build  Channel
 samtools                 0.1.19               0  bioconda
@@ -930,7 +957,7 @@ samtools                 0.1.19               1  bioconda
 samtools                 0.1.19               2  bioconda
 samtools                 0.1.19               3  bioconda
 
-$ conda search '*samtools'       <b class="conum">(1)</b>
+$ conda search '*samtools'       <b class="conum">(2)</b>
 Loading channels: done
 # Name                  Version           Build  Channel
 bioconductor-rsamtools          1.22.0        r3.2.2_0  bioconda
@@ -950,7 +977,10 @@ samtools                        0.1.12               1  bioconda
 <div class="colist arabic">
 <ol>
 <li>
-<p>the quotes prevent globing the asterisk by the shell</p>
+<p>You can also try <code>conda search 'samtools&gt;=1'</code>.</p>
+</li>
+<li>
+<p>The quotes prevent globing the asterisk by the shell.</p>
 </li>
 </ol>
 </div>
@@ -995,7 +1025,7 @@ base                  *  /data/kensche/work/share/miniconda3</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">conda create -n interactive-analysis jupyter-notebook scipy</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda create -n interactive-analysis jupyter-notebook scipy</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1018,7 +1048,7 @@ interactive-analysis     /path/to/your/miniconda3/envs/interactive-analysis</cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ jupyter
+<pre class="CodeRay highlight"><code data-lang="bash">$ jupyter notebook
 bash: jupyter: Command not found</code></pre>
 </div>
 </div>
@@ -1064,6 +1094,18 @@ plt.show()</code></pre>
 <div class="content">
 <img src="Jupyter2.png" alt="Plot">
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Jupyter provides kernels as programming language backends. A complete list can be found at <a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels" class="bare">https://github.com/jupyter/jupyter/wiki/Jupyter-kernels</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_oops">Oops!</h4>
@@ -1495,7 +1537,7 @@ Implement reproducibility features as early as possible!
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2018-07-19 09:14:07 MESZ
+Last updated 2018-07-19 09:58:00 MESZ
 </div>
 </div>
 </body>
