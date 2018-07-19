@@ -594,10 +594,10 @@ dependencies:
     - Separation in terms of software and execution environment
     - Virtualization provides completely separation in independent OS
 +
-image::13742_2016_135_Fig5_HTML.jpg[Virtualization, https://dx.doi.org/10.1186%2Fs13742-016-0135-4]
+image::13742_2016_135_Fig5_HTML.png[Virtualization]
     - Containerization uses the host-operating system but provides separate environment for software deployment and execution
 +
-image::13742_2016_135_Fig6_HTML.jpg[Containers, https://dx.doi.org/10.1186%2Fs13742-016-0135-4]
+image::13742_2016_135_Fig6_HTML.png[Containers]
   * Conda as a tool for managing software dependencies can easily be combined with virtualization technologies.
   * Virtualization technologies
     - https://www.qemu.org/[KVM/QEMU]
