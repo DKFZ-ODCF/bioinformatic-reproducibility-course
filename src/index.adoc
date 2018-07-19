@@ -608,9 +608,6 @@ image::13742_2016_135_Fig6_HTML.jpg[Containers, https://dx.doi.org/10.1186%2Fs13
     - https://singularity.lbl.gov/[Singularity]
     - https://coreos.com/rkt/docs/latest/[Rkt]
 
-
-
-
 == Summary
 
   * Conda has probably the largest community of bioinformatic package contributors.
@@ -632,3 +629,5 @@ TIP: Implement reproducibility features as early as possible!
   - Github Flow @ https://guides.github.com/introduction/flow/
 * https://reproduciblescience.org/directory[reproduciblescience.org]
 * Virtualization & Containerization images from https://dx.doi.org/10.1186%2Fs13742-016-0135-4[Piccolo & Framton, 2016]
+* Miniconda @ https://conda.io/miniconda.html
+* BioConda Recipes @ https://github.com/bioconda/bioconda-recipes
