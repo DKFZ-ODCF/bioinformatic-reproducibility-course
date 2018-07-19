@@ -492,8 +492,7 @@ The `prefix` line shows a local path and is non-essential. It can be removed whe
 $ conda env create -n interactive-analysis-copy -f environment.yaml
 ----
 
-After this on the other system you can normally `source activate` the new environment.
-
+After this you can `source activate` the new environment!
 
 === Removing Environments
 
@@ -540,16 +539,17 @@ Conda is easy to install and use, but also has its limitations.
   * `conda install` can be slow or may even not terminate.
   * `conda install` may fail to find non-conflicting package versions.
   * Dependencies in the "build recipes" can be too narrow or too wide.
-  * Contributing can be hard
+  * Contributing recipes can be hard
+    - Not all software is accepted by all channels.
     - Different channels provide different tooling for contributing packages ("continuous integration").
   * *Packages can get lost!* (So far for reproducibility!)
 
 === Package Loss?
 
   * Complete rebuild of channels
-    * May result in updated build dependencies (Perl, R, Python)
+    - May result in updated build dependencies (Perl, R, Python)
   * Packages get moved between channels (e.g. Bioconda <-> Conda Forge)
-    * May result in updated build dependencies (Perl, R, Python)
+    - May result in updated build dependencies (Perl, R, Python)
   * Packages get completely removed
 
 How to cope with these problems?
@@ -557,6 +557,13 @@ How to cope with these problems?
 ==== "bioconda-legacy" Channel
 
 *Some* outdated packages can still be present there.
+
+Search 'bioconda-legacy' without adding it to the channel queue:
+
+[source,bash]
+----
+$ conda search -c bioconda-legacy 'r-getopt==1.20.0=r3.2.2_0'
+----
 
 Add the channel to your channel list with
 
@@ -569,7 +576,8 @@ $ conda config --add channels bioconda-legacy
 
 It may be safe to upgrade to larger versions of R, Perl, Python, as long as the bioinformatic packages remain at the same version.
 
-To achieve this you need to remove version constraints from the exported environemnt YAML file and let Conda find a suited package version:
+  * Remove version constraints from the exported environemnt YAML file
+  * Let Conda find a suited package version
 
 [source,yaml]
 ----
@@ -592,6 +600,7 @@ dependencies:
 ==== Other Solutions
 
   * Build a local version of the package with `conda build`
+    - May require old package recipes from the channel's Github repositories
   * Keep a local channel copy?
   * Use containers or virtual machines to avoid having to reinstall the Conda environment
 
