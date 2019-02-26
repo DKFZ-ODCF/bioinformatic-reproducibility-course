@@ -5,3 +5,4 @@ src/diag-*.png.cache
 *.ipynb
 gradle.properties
 .idea/workspace.xml
+src/.asciidoctor
