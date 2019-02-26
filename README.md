@@ -1,4 +1,4 @@
-# Conda for Convenience and Reproducibility
+# Reproducibility in Bioinformatics
 
 A short presentation (1/2 h) or course (probably 1.5 h) given for a group of molecular biotechnology master students in Heidelberg, Germany.
 
@@ -33,4 +33,5 @@ You can publish your changes to the `gh-pages` branch with
 
 ## Versions
 
+ * 2.x.y: To be held on the 6th of March, 2019
  * 1.0.0: Held 18th July 2018
