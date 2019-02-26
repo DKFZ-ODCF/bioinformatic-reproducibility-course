@@ -2,18 +2,18 @@
 
 A short presentation (1/2 h) or course (probably 1.5 h) given for a group of molecular biotechnology master students in Heidelberg, Germany.
 
-Have a look at https://dkfz-odcf.github.io/conda-course/ to see the presentation.
+Have a look at https://dkfz-odcf.github.io/bioinformatic-reproducibility-course/ to see the presentation.
 
 ## Build Instructions
 
 * Clone the repository
   ```bash
-  git clone https://github.com/DKFZ-ODCF/conda-course.git
+  git clone https://github.com/DKFZ-ODCF/bioinformatic-reproducibility-course.git
   ```
 
 * Build the presentation
   ```bash
-  cd conda-course
+  cd bioinformatic-reproducibility-course
   ./gradlew asciidoctor
   ```
 
