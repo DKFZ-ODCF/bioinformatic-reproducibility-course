@@ -5,8 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<meta name="author" content="Philip R. Kensche">
-<title>Conda for Convenience and Reproducibility</title>
+<meta name="author" content="Philip R. Kensche &amp; Michael Heinold">
+<title>Reproducibility in Bioinformatics</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -524,29 +524,268 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="book">
 <div id="header">
-<h1>Conda for Convenience and Reproducibility</h1>
+<h1>Reproducibility in Bioinformatics</h1>
 <div class="details">
-<span id="author" class="author">Philip R. Kensche</span><br>
-<span id="revnumber">version 1.0,</span>
-<span id="revdate">2018-07-19</span>
+<span id="author" class="author">Philip R. Kensche &amp; Michael Heinold</span><br>
+<span id="revnumber">version 2.0,</span>
+<span id="revdate">2019-03-06</span>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_bioinformatic_reproducibility">Bioinformatic Reproducibility</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
 <img src="reproducibility.png" alt="Reproducibility" width="500">
 </div>
 </div>
-<div class="paragraph">
-<p>We will focus here on software deployment.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_programming">Programming</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Communication</p>
+<div class="ulist">
+<ul>
+<li>
+<p>computer must understand code</p>
+</li>
+<li>
+<p>your future you must understand your code</p>
+</li>
+<li>
+<p>others must understand your code</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Decide yourself</p>
+</li>
+<li>
+<p>Code 2, 3, &#8230;&#8203; times the same code</p>
+</li>
+<li>
+<p>Write it once (with test!)</p>
+</li>
+<li>
+<p>Complexity management</p>
+</li>
+<li>
+<p>Bash is programming (but avoid Bash ;-) )</p>
+</li>
+<li>
+<p>Use a powerful language</p>
+</li>
+<li>
+<p>Python</p>
+</li>
+<li>
+<p>Java, Groovy</p>
+</li>
+<li>
+<p>R</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_programming_power_tools">Programming Power Tools</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Code review</p>
+</li>
+<li>
+<p>Ask a software developer</p>
+</li>
+<li>
+<p>Use an IDE (PyCharm, IntelliJ IDEA, &#8230;&#8203;)</p>
+</li>
+<li>
+<p>Automated tests</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unit testing frameworks</p>
+</li>
+<li>
+<p>even in Bash [shunit2]</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_you_want">You want &#8230;&#8203;</h2>
+<h2 id="_workflow_management_systems">Workflow Management Systems</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>A "workflow" is</p>
+</li>
+<li>
+<p>A program that does data processing steps</p>
+</li>
+<li>
+<p>Workflow Management System</p>
+</li>
+<li>
+<p>Syntax for defining workflows</p>
+</li>
+<li>
+<p>Manage dependencies between data and processing steps</p>
+</li>
+<li>
+<p>Abstract from execution backends (e.g. different batch processing systems)</p>
+</li>
+<li>
+<p>Provide logging</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_no_standards">No Standards</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Literally <a href="https://github.com/common-workflow-language/common-workflow-language/wiki/Existing-Workflow-systems">hundreds</a> of systems</p>
+</li>
+<li>
+<p>but &#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://galaxyproject.org/use/">Galaxy</a></p>
+</li>
+<li>
+<p><a href="https://bitbucket.org/snakemake/snakemake">Snakemake</a> (Python)</p>
+</li>
+<li>
+<p><a href="https://www.nextflow.io/">Nextflow</a> (Groovy)</p>
+</li>
+<li>
+<p><a href="https://www.commonwl.org/">CWL</a></p>
+</li>
+<li>
+<p>WDL (<a href="https://github.com/broadinstitute/cromwell">Cromwell</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_control_systems">Version Control Systems</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Manage many versions of your code</p>
+</li>
+<li>
+<p>Diverse tools</p>
+<div class="ulist">
+<ul>
+<li>
+<p>SNV, CVS, Mercurial, <strong>Git</strong>, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_terms">Terms</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Code is stored in a "repository"</p>
+</li>
+<li>
+<p>Every version is associated with a number (usually "hash" code)</p>
+</li>
+<li>
+<p>Registering a version to track is called "committing"</p>
+</li>
+<li>
+<p>Parallel development lines are tracked in "branches"</p>
+</li>
+<li>
+<p>Main development line is the "master branch"</p>
+<div class="literalblock">
+<div class="content">
+<pre>TODO: Picture?</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_use">How to use?</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>A good and simple guideline to track development code is <a href="https://guides.github.com/introduction/flow/">Github Flow</a></p>
+</li>
+<li>
+<p>Git Book @ <a href="https://git-scm.com/book/en/v2" class="bare">https://git-scm.com/book/en/v2</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vcs_xtreme">VCS Xtreme</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure your repo is clean</p>
+</li>
+<li>
+<p>Put your commit hash into figures and files</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_r">R</h4>
+<div class="paragraph">
+<p>example</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_python">Python</h4>
+<div class="paragraph">
+<p>example</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_other_languages">Other Languages</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Java: jgit</p>
+</li>
+<li>
+<p>Perl: &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_software_deployment">Software deployment &#8230;&#8203;</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_to_publish_and_share">&#8230;&#8203; to publish and share</h3>
@@ -587,7 +826,7 @@ table.CodeRay td.code>pre{padding:0}
 <p>Pre-installed "department software stack"</p>
 </li>
 <li>
-<p>Where to download the correct versions and how to compile them?</p>
+<p>Where to download the correct versions and how to install them?</p>
 </li>
 <li>
 <p>Do this 1000 times?</p>
@@ -595,7 +834,7 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_software_deployment">Software Deployment</h3>
+<h3 id="_software_deployment_2">Software Deployment</h3>
 <div class="paragraph">
 <p>There are uncontrollable factors:</p>
 </div>
@@ -761,7 +1000,7 @@ Implement reproducibility features as early as possible!
 </div>
 </li>
 <li>
-<p>Conda as a tool for managing software dependencies can easily be combined with virtualization technologies.</p>
+<p>Conda can easily be combined with virtualization technologies</p>
 </li>
 <li>
 <p>Virtualization technologies</p>
@@ -775,6 +1014,19 @@ Implement reproducibility features as early as possible!
 </li>
 <li>
 <p><a href="https://www.vmware.com/">VMWare</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cloud Virtualization</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Amazon Web Services</p>
+</li>
+<li>
+<p>OpenStack</p>
 </li>
 </ul>
 </div>
@@ -795,20 +1047,6 @@ Implement reproducibility features as early as possible!
 </ul>
 </div>
 </li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_docker">Docker</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_singularity">Singularity</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_openstack">OpenStack</h3>
-<div class="ulist">
-<ul>
 <li>
 <p>Example cloud environment, found frequently in science (e.g. <a href="https://www.denbi.de/cloud">de.NBI Cloud</a>)</p>
 </li>
@@ -816,9 +1054,111 @@ Implement reproducibility features as early as possible!
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_jupyter_co">Jupyter &amp; Co.</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>"Literate programing"</p>
+</li>
+<li>
+<p>Integrate data processing, figures and free-text</p>
+</li>
+<li>
+<p>Commented analysis</p>
+</li>
+<li>
+<p>Decision log</p>
+</li>
+<li>
+<p>kernels = backends</p>
+</li>
+<li>
+<p>Bash</p>
+</li>
+<li>
+<p>Python</p>
+</li>
+<li>
+<p>R</p>
+</li>
+<li>
+<p>Spark</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="_using_conda">Using Conda</h2>
+<h2 id="_further_material">Further Material</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Course PM7 and AM4 at the ISMB/ECCB 2019 in Basel @ <a href="https://www.iscb.org/ismbeccb2019-program/tutorials" class="bare">https://www.iscb.org/ismbeccb2019-program/tutorials</a></p>
+</li>
+<li>
+<p>Conda User&#8217;s Guide @ <a href="https://conda.io/docs/user-guide" class="bare">https://conda.io/docs/user-guide</a></p>
+</li>
+<li>
+<p>BioConda article @ <a href="https://www.nature.com/articles/s41592-018-0046-7" class="bare">https://www.nature.com/articles/s41592-018-0046-7</a></p>
+</li>
+<li>
+<p>NBIS Reproducible Science Course @ <a href="https://nbis-reproducible-research.readthedocs.io/en/latest/" class="bare">https://nbis-reproducible-research.readthedocs.io/en/latest/</a></p>
+</li>
+<li>
+<p>Source code revisioning with Git @ <a href="https://git-scm.com/" class="bare">https://git-scm.com/</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Git Book @ <a href="https://git-scm.com/book/en/v2" class="bare">https://git-scm.com/book/en/v2</a></p>
+</li>
+<li>
+<p>Github Flow @ <a href="https://guides.github.com/introduction/flow/" class="bare">https://guides.github.com/introduction/flow/</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://reproduciblescience.org/directory">reproduciblescience.org</a></p>
+</li>
+<li>
+<p>Miniconda @ <a href="https://conda.io/miniconda.html" class="bare">https://conda.io/miniconda.html</a></p>
+</li>
+<li>
+<p>BioConda Recipes @ <a href="https://github.com/bioconda/bioconda-recipes" class="bare">https://github.com/bioconda/bioconda-recipes</a></p>
+</li>
+<li>
+<p>de.NBI Cloud @ <a href="https://www.denbi.de/cloud" class="bare">https://www.denbi.de/cloud</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Virtualization &amp; Containerization images from <a href="https://dx.doi.org/10.1186%2Fs13742-016-0135-4">Piccolo &amp; Framton, 2016</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tutorial">Tutorial</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conda">Conda</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_install_miniconda">Install Miniconda</h3>
@@ -1527,83 +1867,28 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </li>
 </ul>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-Implement reproducibility features as early as possible!
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_further_material">Further Material</h2>
+<h2 id="_git">Git</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Course PM7 and AM4 at the ISMB/ECCB 2019 in Basel @ <a href="https://www.iscb.org/ismbeccb2019-program/tutorials" class="bare">https://www.iscb.org/ismbeccb2019-program/tutorials</a></p>
-</li>
-<li>
-<p>Conda User&#8217;s Guide @ <a href="https://conda.io/docs/user-guide" class="bare">https://conda.io/docs/user-guide</a></p>
-</li>
-<li>
-<p>BioConda article @ <a href="https://www.nature.com/articles/s41592-018-0046-7" class="bare">https://www.nature.com/articles/s41592-018-0046-7</a></p>
-</li>
-<li>
-<p>NBIS Reproducible Science Course @ <a href="https://nbis-reproducible-research.readthedocs.io/en/latest/" class="bare">https://nbis-reproducible-research.readthedocs.io/en/latest/</a></p>
-</li>
-<li>
-<p>Source code revisioning with Git @ <a href="https://git-scm.com/" class="bare">https://git-scm.com/</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Git Book @ <a href="https://git-scm.com/book/en/v2" class="bare">https://git-scm.com/book/en/v2</a></p>
-</li>
-<li>
-<p>Github Flow @ <a href="https://guides.github.com/introduction/flow/" class="bare">https://guides.github.com/introduction/flow/</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="https://reproduciblescience.org/directory">reproduciblescience.org</a></p>
-</li>
-<li>
-<p>Miniconda @ <a href="https://conda.io/miniconda.html" class="bare">https://conda.io/miniconda.html</a></p>
-</li>
-<li>
-<p>BioConda Recipes @ <a href="https://github.com/bioconda/bioconda-recipes" class="bare">https://github.com/bioconda/bioconda-recipes</a></p>
-</li>
-<li>
-<p>de.NBI Cloud @ <a href="https://www.denbi.de/cloud" class="bare">https://www.denbi.de/cloud</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_references">References</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Virtualization &amp; Containerization images from <a href="https://dx.doi.org/10.1186%2Fs13742-016-0135-4">Piccolo &amp; Framton, 2016</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>git init
+git log
+git diff
+git stage
+git commit
+git push
+git pull
+git clone</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0<br>
-Last updated 2019-02-26 14:03:27 +0100
+Version 2.0<br>
+Last updated 2019-02-26 17:09:09 +0100
 </div>
 </div>
 </body>
