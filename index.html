@@ -1154,14 +1154,10 @@ Implement reproducibility features as early as possible!
 <div class="sect1">
 <h2 id="_tutorial">Tutorial</h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conda">Conda</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_install_miniconda">Install Miniconda</h3>
+<h3 id="_conda">Conda</h3>
+<div class="sect3">
+<h4 id="_install_miniconda">Install Miniconda</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh <b class="conum">(1)</b>
@@ -1249,8 +1245,8 @@ Current conda install:
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_channels">Channels</h3>
+<div class="sect3">
+<h4 id="_channels">Channels</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1314,8 +1310,8 @@ $ conda config --add channels bioconda-legacy <b class="conum">(2)</b></code></p
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_finding_packages">Finding Packages</h3>
+<div class="sect3">
+<h4 id="_finding_packages">Finding Packages</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ conda search -h
@@ -1435,8 +1431,8 @@ Check the Conda documentation on <a href="https://conda.io/docs/user-guide/tasks
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_environments">Environments</h3>
+<div class="sect3">
+<h4 id="_environments">Environments</h4>
 <div class="paragraph">
 <p>Environments allow you to handle different&#8201;&#8212;&#8201;potentially incompatible&#8201;&#8212;&#8201;sets of tools.</p>
 </div>
@@ -1545,8 +1541,8 @@ Jupyter provides kernels as programming language backends. A complete list can b
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_oops">Oops!</h4>
+<div class="sect4">
+<h5 id="_oops">Oops!</h5>
 <div class="paragraph">
 <p>Actually, in my case when starting the Python kernel in Jupyter, I got an error message. Apparently, the specific version of the Jupyter package was broken!</p>
 </div>
@@ -1563,8 +1559,8 @@ Jupyter provides kernels as programming language backends. A complete list can b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_leaving_environments">Leaving Environments</h3>
+<div class="sect3">
+<h4 id="_leaving_environments">Leaving Environments</h4>
 <div class="paragraph">
 <p>After you are done with your work, you can do &#8230;&#8203;</p>
 </div>
@@ -1577,8 +1573,8 @@ Jupyter provides kernels as programming language backends. A complete list can b
 <p>... to restore you original, Conda-free environment.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_sharing_environments">Sharing Environments</h3>
+<div class="sect3">
+<h4 id="_sharing_environments">Sharing Environments</h4>
 <div class="paragraph">
 <p>How to transfer an environment to a different machine?</p>
 </div>
@@ -1633,8 +1629,8 @@ Jupyter provides kernels as programming language backends. A complete list can b
 <p>After this you can <code>source activate</code> the new environment!</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_removing_environments">Removing Environments</h3>
+<div class="sect3">
+<h4 id="_removing_environments">Removing Environments</h4>
 <div class="paragraph">
 <p>Let&#8217;s remove the copy of the "interactive-analysis" environment we just created:</p>
 </div>
@@ -1657,8 +1653,8 @@ interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis</c
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_renaming_environments">Renaming Environments</h3>
+<div class="sect3">
+<h4 id="_renaming_environments">Renaming Environments</h4>
 <div class="paragraph">
 <p>There is no dedicated renaming command. Instead, renaming an environment is done by "cloning" it and removing the original:</p>
 </div>
@@ -1675,10 +1671,8 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_limitations">Limitations</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_limitations">Limitations</h3>
 <div class="paragraph">
 <p>Conda is easy to install and use, but also has its limitations.</p>
 </div>
@@ -1714,8 +1708,8 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="_package_loss">Package Loss?</h3>
+<div class="sect3">
+<h4 id="_package_loss">Package Loss?</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1746,8 +1740,8 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 <div class="paragraph">
 <p>How to cope with these problems?</p>
 </div>
-<div class="sect3">
-<h4 id="_bioconda_legacy_channel">"bioconda-legacy" Channel</h4>
+<div class="sect4">
+<h5 id="_bioconda_legacy_channel">"bioconda-legacy" Channel</h5>
 <div class="paragraph">
 <p><strong>Some</strong> outdated packages can still be present there.</p>
 </div>
@@ -1768,8 +1762,8 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_upgrade_to_newer_r_perl_python">Upgrade to newer R, Perl, Python</h4>
+<div class="sect4">
+<h5 id="_upgrade_to_newer_r_perl_python">Upgrade to newer R, Perl, Python</h5>
 <div class="paragraph">
 <p>It may be safe to upgrade to larger versions of R, Perl, Python, as long as the bioinformatic packages remain at the same version.</p>
 </div>
@@ -1812,8 +1806,8 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_other_solutions">Other Solutions</h4>
+<div class="sect4">
+<h5 id="_other_solutions">Other Solutions</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1837,10 +1831,8 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_summary">Summary</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_summary">Summary</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1869,6 +1861,7 @@ my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="_git">Git</h2>
 <div class="sectionbody">
@@ -1888,7 +1881,7 @@ git clone</p>
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2019-02-26 17:09:09 +0100
+Last updated 2019-02-26 17:11:44 +0100
 </div>
 </div>
 </body>
