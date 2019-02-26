@@ -542,83 +542,26 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="_programming">Programming</h2>
+<h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Communication</p>
-<div class="ulist">
-<ul>
-<li>
-<p>computer must understand code</p>
+<p>Workflow Management Systems</p>
 </li>
 <li>
-<p>your future you must understand your code</p>
+<p>Notes on Programming</p>
 </li>
 <li>
-<p>others must understand your code</p>
+<p>Version Control</p>
+</li>
+<li>
+<p>Software Deployment, Containers &amp; Virtualiziation</p>
+</li>
+<li>
+<p>Literate Programming</p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>Decide yourself</p>
-</li>
-<li>
-<p>Code 2, 3, &#8230;&#8203; times the same code</p>
-</li>
-<li>
-<p>Write it once (with test!)</p>
-</li>
-<li>
-<p>Complexity management</p>
-</li>
-<li>
-<p>Bash is programming (but avoid Bash ;-) )</p>
-</li>
-<li>
-<p>Use a powerful language</p>
-</li>
-<li>
-<p>Python</p>
-</li>
-<li>
-<p>Java, Groovy</p>
-</li>
-<li>
-<p>R</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_programming_power_tools">Programming Power Tools</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Code review</p>
-</li>
-<li>
-<p>Ask a software developer</p>
-</li>
-<li>
-<p>Use an IDE (PyCharm, IntelliJ IDEA, &#8230;&#8203;)</p>
-</li>
-<li>
-<p>Automated tests</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Unit testing frameworks</p>
-</li>
-<li>
-<p>even in Bash [shunit2]</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
 </div>
 </div>
 </div>
@@ -634,7 +577,7 @@ table.CodeRay td.code>pre{padding:0}
 <p>A program that does data processing steps</p>
 </li>
 <li>
-<p>Workflow Management System</p>
+<p>Workflow Management Systems</p>
 </li>
 <li>
 <p>Syntax for defining workflows</p>
@@ -646,7 +589,7 @@ table.CodeRay td.code>pre{padding:0}
 <p>Abstract from execution backends (e.g. different batch processing systems)</p>
 </li>
 <li>
-<p>Provide logging</p>
+<p>Log execution to easy reproduction</p>
 </li>
 </ul>
 </div>
@@ -685,12 +628,278 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
+<h2 id="_some_notes_on_programming">Some Notes on "Programming"</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Communication</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Computer must understand your code</p>
+</li>
+<li>
+<p>Your future <strong>you</strong> must understand your code</p>
+</li>
+<li>
+<p>Others must understand your code</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Complexity management</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Biological systems are complex</p>
+</li>
+<li>
+<p>Bioinformatic code to analyze biological systems is complex</p>
+</li>
+<li>
+<p>Complexity increases with the time you add analyses</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_programming_languages">Programming Languages</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Writing a workflow is programming</p>
+</li>
+<li>
+<p>Log in to a computer and you&#8217;ll get a shell</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Doing s.th. on the shell is programming</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Understand</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Every programming language has its strengths and weaknesses</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_bash">Bash</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Frequently default shell on Linux environments</p>
+</li>
+<li>
+<p>Good for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Doing quick checks of files</p>
+</li>
+<li>
+<p>Top-level automatization of multiple tools into <strong>simple</strong> workflows</p>
+</li>
+<li>
+<p>Plugging together (few) components</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Bad for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Working with complex data</p>
+</li>
+<li>
+<p>Workflows with more than 2-3 steps</p>
+</li>
+<li>
+<p>Handling errors (they will happen!)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_r">R</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Good for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Statistics</p>
+</li>
+<li>
+<p>Exploratory data analysis</p>
+</li>
+<li>
+<p>Data plotting</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Bad for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Text processing</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_python_perl_ruby_or_other_scripting_languages">Python, Perl, Ruby or other Scripting Languages</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Scripting languages are not "compiled" into binaries (assembly language)</p>
+</li>
+<li>
+<p>Good for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>More serious programming</p>
+</li>
+<li>
+<p>Handling more complex data</p>
+</li>
+<li>
+<p>Get going quickly</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Bad for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Really fast processing (except numerics)</p>
+</li>
+<li>
+<p>Very complex programs</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Python has pretty good numerical/statistical libraries</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_compiled_languages">Compiled Languages</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Good for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Very complex programs</p>
+</li>
+<li>
+<p>Tuning towards super-fast applications</p>
+</li>
+<li>
+<p>Support you by advanced (static) checking of data types</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Bad for</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Get going quickly</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_programming_power_tools">Programming Power Tools</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Code review</p>
+</li>
+<li>
+<p>Ask a software developer</p>
+</li>
+<li>
+<p>Use an IDE (PyCharm, IntelliJ IDEA, &#8230;&#8203;)</p>
+</li>
+<li>
+<p>Automated tests</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unit testing frameworks</p>
+</li>
+<li>
+<p>Even in Bash [shunit2]</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_version_control_systems">Version Control Systems</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
 <p>Manage many versions of your code</p>
+</li>
+<li>
+<p>Code is usually is some form of text</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Programming language code (Python, Perl, R, etc.)</p>
+</li>
+<li>
+<p>Workflow descriptions</p>
+</li>
+<li>
+<p>Documentation</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Diverse tools</p>
@@ -705,17 +914,17 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_terms">Terms</h3>
+<h3 id="_terminology">Terminology</h3>
 <div class="ulist">
 <ul>
 <li>
 <p>Code is stored in a "repository"</p>
 </li>
 <li>
-<p>Every version is associated with a number (usually "hash" code)</p>
+<p>Registering code as version valuable enough to track is called "committing"</p>
 </li>
 <li>
-<p>Registering a version to track is called "committing"</p>
+<p>Every version is associated with a number (usually "hash" code)</p>
 </li>
 <li>
 <p>Parallel development lines are tracked in "branches"</p>
@@ -741,6 +950,9 @@ table.CodeRay td.code>pre{padding:0}
 <li>
 <p>Git Book @ <a href="https://git-scm.com/book/en/v2" class="bare">https://git-scm.com/book/en/v2</a></p>
 </li>
+<li>
+<p><a href="https://guides.github.com/introduction/flow/">Happy Git and Github for useR</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -757,15 +969,59 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_r">R</h4>
+<h4 id="_r_example">R Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="R">&gt; library(&quot;git2r&quot;) # <b class="conum">(1)</b>
+&gt; repo &lt;- repository(&quot;/path/to/your/repo/dir&quot;) # <b class="conum">(2)</b>
+&gt; is_dirty &lt;- function(status) {
+    length(status$unstaged) != 0 || length(status$untracked) != 0 # <b class="conum">(3)</b>
+}
+&gt; if (is_dirty(status(repo))) { stop(&quot;Not proceeding! Repo is dirty!&quot;); } # <b class="conum">(4)</b>
+&gt; commitHash &lt;- sha(head(repo)) # <b class="conum">(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Load the R library for accessing git repositories (you can get it from <a href="https://cran.r-project.org/web/packages/git2r/index.html">CRAN</a>)</p>
+</li>
+<li>
+<p>Get a handle for the repository</p>
+</li>
+<li>
+<p>Definition of "dirty": there are unstaged changes or untracked files</p>
+</li>
+<li>
+<p>Check that the repository is clean, i.e. all changes are committed</p>
+</li>
+<li>
+<p>Get the unique identifier of the current repository commit</p>
+</li>
+</ol>
+</div>
 <div class="paragraph">
-<p>example</p>
+<p>Simply add the <code>commitHash</code> to your figures, output directories, filenames, or similar.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_python">Python</h4>
+<h4 id="_python_example">Python Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="python">---
+&gt; <span class="keyword">from</span> <span class="include">git</span> <span class="keyword">import</span> <span class="include">*</span> # <b class="conum">(1)</b>
+&gt; repo = Repo(<span class="string"><span class="delimiter">&quot;</span><span class="content">/path/to/your/repo/dir</span><span class="delimiter">&quot;</span></span>) # <b class="conum">(2)</b>
+&gt; <span class="keyword">if</span> (repo.is_dirty()): <span class="keyword">raise</span> <span class="exception">Exception</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Not proceeding! Repo is dirty!</span><span class="delimiter">&quot;</span></span>) # <b class="conum">(3)</b>
+&gt; commitHash = repo.head.commit.__str__() # <b class="conum">(4)</b>
+----
+&lt;<span class="integer">1</span>&gt; Load the R library <span class="keyword">for</span> accessing git repositories (you can get it <span class="keyword">from</span> <span class="include">https</span>://cran.r-project.org/web/packages/git2r/index.html[CRAN])
+&lt;<span class="integer">2</span>&gt; Get a handle <span class="keyword">for</span> the repository
+&lt;<span class="integer">3</span>&gt; Check that the repository <span class="keyword">is</span> clean, i.e. all changes are committed
+&lt;<span class="integer">4</span>&gt; Get the unique identifier of the current repository commit</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>example</p>
+<p>Simply add the <code>commitHash</code> to your figures, output directories, filenames, or similar.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1881,7 +2137,7 @@ git clone</p>
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2019-02-26 17:11:44 +0100
+Last updated 2019-02-26 18:46:44 +0100
 </div>
 </div>
 </body>
