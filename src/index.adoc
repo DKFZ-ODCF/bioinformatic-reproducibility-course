@@ -6,42 +6,24 @@ v2.0, 2019-03-06
 
 image::reproducibility.png[Reproducibility,width=500]
 
-== Programming
+== Overview
 
-  * Communication
-    - computer must understand code
-    - your future you must understand your code
-    - others must understand your code
-  * Decide yourself
-      * Code 2, 3, ... times the same code
-      * Write it once (with test!)
-  * Complexity management
-
-  * Bash is programming (but avoid Bash ;-) )
-  * Use a powerful language
-    * Python
-    * Java, Groovy
-    * R
-
-=== Programming Power Tools
-
-  * Code review
-  * Ask a software developer
-  * Use an IDE (PyCharm, IntelliJ IDEA, ...)
-  * Automated tests
-    - Unit testing frameworks
-    - even in Bash [shunit2]
+  * Workflow Management Systems
+  * Notes on Programming
+  * Version Control
+  * Software Deployment, Containers & Virtualiziation
+  * Literate Programming
 
 == Workflow Management Systems
 
   * A "workflow" is
     * A program that does data processing steps
 
-  * Workflow Management System
+  * Workflow Management Systems
     * Syntax for defining workflows
     * Manage dependencies between data and processing steps
     * Abstract from execution backends (e.g. different batch processing systems)
-    * Provide logging
+    * Log execution to easy reproduction
 
 === No Standards
 
@@ -53,17 +35,91 @@ image::reproducibility.png[Reproducibility,width=500]
     - https://www.commonwl.org/[CWL]
     - WDL (https://github.com/broadinstitute/cromwell[Cromwell])
 
+== Some Notes on "Programming"
+
+  * Communication
+    - Computer must understand your code
+    - Your future *you* must understand your code
+    - Others must understand your code
+  * Complexity management
+    - Biological systems are complex
+    - Bioinformatic code to analyze biological systems is complex
+    - Complexity increases with the time you add analyses
+
+=== Programming Languages
+
+  * Writing a workflow is programming
+  * Log in to a computer and you'll get a shell
+    - Doing s.th. on the shell is programming
+  * Understand
+    - Every programming language has its strengths and weaknesses
+
+==== Bash
+
+  * Frequently default shell on Linux environments
+  * Good for
+    - Doing quick checks of files
+    - Top-level automatization of multiple tools into *simple* workflows
+    - Plugging together (few) components
+  * Bad for
+    - Working with complex data
+    - Workflows with more than 2-3 steps
+    - Handling errors (they will happen!)
+
+==== R
+
+  * Good for
+    - Statistics
+    - Exploratory data analysis
+    - Data plotting
+  * Bad for
+    - Text processing
+
+==== Python, Perl, Ruby or other Scripting Languages
+
+  * Scripting languages are not "compiled" into binaries (assembly language)
+  * Good for
+    - More serious programming
+    - Handling more complex data
+    - Get going quickly
+  * Bad for
+    - Really fast processing (except numerics)
+    - Very complex programs
+  * Python has pretty good numerical/statistical libraries
+
+==== Compiled Languages
+
+  * Good for
+    - Very complex programs
+    - Tuning towards super-fast applications
+    - Support you by advanced (static) checking of data types
+  * Bad for
+    - Get going quickly
+
+=== Programming Power Tools
+
+  * Code review
+  * Ask a software developer
+  * Use an IDE (PyCharm, IntelliJ IDEA, ...)
+  * Automated tests
+    - Unit testing frameworks
+    - Even in Bash [shunit2]
+
 == Version Control Systems
 
   * Manage many versions of your code
+  * Code is usually is some form of text
+    - Programming language code (Python, Perl, R, etc.)
+    - Workflow descriptions
+    - Documentation
   * Diverse tools
-     - SNV, CVS, Mercurial, **Git**, ...
+    - SNV, CVS, Mercurial, **Git**, ...
 
-=== Terms
+=== Terminology
 
   * Code is stored in a "repository"
+  * Registering code as version valuable enough to track is called "committing"
   * Every version is associated with a number (usually "hash" code)
-  * Registering a version to track is called "committing"
   * Parallel development lines are tracked in "branches"
   * Main development line is the "master branch"
 
@@ -73,19 +129,48 @@ image::reproducibility.png[Reproducibility,width=500]
 
   * A good and simple guideline to track development code is https://guides.github.com/introduction/flow/[Github Flow]
   * Git Book @ https://git-scm.com/book/en/v2
+  * https://guides.github.com/introduction/flow/[Happy Git and Github for useR]
 
 === VCS Xtreme
 
   * Ensure your repo is clean
   * Put your commit hash into figures and files
 
-==== R
+==== R Example
 
-example
+[source,R]
+----
+> library("git2r") # <1>
+> repo <- repository("/path/to/your/repo/dir") # <2>
+> is_dirty <- function(status) {
+    length(status$unstaged) != 0 || length(status$untracked) != 0 # <3>
+}
+> if (is_dirty(status(repo))) { stop("Not proceeding! Repo is dirty!"); } # <4>
+> commitHash <- sha(head(repo)) # <5>
+----
+<1> Load the R library for accessing git repositories (you can get it from https://cran.r-project.org/web/packages/git2r/index.html[CRAN])
+<2> Get a handle for the repository
+<3> Definition of "dirty": there are unstaged changes or untracked files
+<4> Check that the repository is clean, i.e. all changes are committed
+<5> Get the unique identifier of the current repository commit
 
-==== Python
+Simply add the `commitHash` to your figures, output directories, filenames, or similar.
 
-example
+==== Python Example
+
+[source,python]
+---
+> from git import * # <1>
+> repo = Repo("/path/to/your/repo/dir") # <2>
+> if (repo.is_dirty()): raise Exception("Not proceeding! Repo is dirty!") # <3>
+> commitHash = repo.head.commit.__str__() # <4>
+----
+<1> Load the R library for accessing git repositories (you can get it from https://cran.r-project.org/web/packages/git2r/index.html[CRAN])
+<2> Get a handle for the repository
+<3> Check that the repository is clean, i.e. all changes are committed
+<4> Get the unique identifier of the current repository commit
+
+Simply add the `commitHash` to your figures, output directories, filenames, or similar.
 
 ==== Other Languages
 
@@ -284,7 +369,7 @@ image::13742_2016_135_Fig6_HTML.png[Containers]
     * Spark
     * ...
 
-= Further Material
+== Further Material
 
 * Course PM7 and AM4 at the ISMB/ECCB 2019 in Basel @ https://www.iscb.org/ismbeccb2019-program/tutorials
 * Conda User's Guide @ https://conda.io/docs/user-guide
@@ -298,16 +383,16 @@ image::13742_2016_135_Fig6_HTML.png[Containers]
 * BioConda Recipes @ https://github.com/bioconda/bioconda-recipes
 * de.NBI Cloud @ https://www.denbi.de/cloud
 
-= References
+== References
 
 * Virtualization & Containerization images from https://dx.doi.org/10.1186%2Fs13742-016-0135-4[Piccolo & Framton, 2016]
 
 
-= Tutorial
+== Tutorial
 
-== Conda
+=== Conda
 
-=== Install Miniconda
+==== Install Miniconda
 
 [source,bash]
 ----
@@ -377,7 +462,7 @@ Current conda install:
 
 ```
 
-=== Channels
+==== Channels
 
 * Channels are conda's package repositories
 * Multiple channels can be used at the same time with different priorities
@@ -419,7 +504,7 @@ $ conda info
 <1> \... will show the updated channel list with the "bioconda-legacy", "bioconda" and "conda-forge channels.
 
 
-=== Finding Packages
+==== Finding Packages
 [source,bash]
 ----
 $ conda search -h
@@ -498,7 +583,7 @@ samtools                        0.1.12               1  bioconda
 TIP: Check the Conda documentation on https://conda.io/docs/user-guide/tasks/build-packages/package-spec.html[package specification] for a description of the match pattern if you need to do complex searches.
 
 
-=== Environments
+==== Environments
 
 Environments allow you to handle different -- potentially incompatible -- sets of tools.
 
@@ -576,7 +661,7 @@ image::Jupyter2.png[Plot]
 
 NOTE: Jupyter provides kernels as programming language backends. A complete list can be found at https://github.com/jupyter/jupyter/wiki/Jupyter-kernels.
 
-==== Oops!
+===== Oops!
 
 Actually, in my case when starting the Python kernel in Jupyter, I got an error message. Apparently, the specific version of the Jupyter package was broken!
 
@@ -589,7 +674,7 @@ $ pip install jupyter -U
 
 \... an up-to-date Jupyter Notebook package is installed in the environment!
 
-=== Leaving Environments
+==== Leaving Environments
 
 After you are done with your work, you can do ...
 
@@ -600,7 +685,7 @@ $ source deactivate
 
 \... to restore you original, Conda-free environment.
 
-=== Sharing Environments
+==== Sharing Environments
 
 How to transfer an environment to a different machine?
 
@@ -643,7 +728,7 @@ $ conda env create -n interactive-analysis-copy -f environment.yaml
 
 After this you can `source activate` the new environment!
 
-=== Removing Environments
+==== Removing Environments
 
 Let's remove the copy of the "interactive-analysis" environment we just created:
 
@@ -665,7 +750,7 @@ base                       /path/to/your/miniconda3
 interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis
 ----
 
-=== Renaming Environments
+==== Renaming Environments
 
 There is no dedicated renaming command. Instead, renaming an environment is done by "cloning" it and removing the original:
 
@@ -680,7 +765,7 @@ base                       /path/to/your/miniconda3
 my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication
 ----
 
-== Limitations
+=== Limitations
 
 Conda is easy to install and use, but also has its limitations.
 
@@ -693,7 +778,7 @@ Conda is easy to install and use, but also has its limitations.
     - Different channels provide different tooling for contributing packages ("continuous integration").
   * *Packages can get lost!* (So far for reproducibility!)
 
-=== Package Loss?
+==== Package Loss?
 
   * Complete rebuild of channels
     - May result in updated build dependencies (Perl, R, Python)
@@ -703,7 +788,7 @@ Conda is easy to install and use, but also has its limitations.
 
 How to cope with these problems?
 
-==== "bioconda-legacy" Channel
+===== "bioconda-legacy" Channel
 
 *Some* outdated packages can still be present there.
 
@@ -721,7 +806,7 @@ Add the channel to your channel list with
 $ conda config --add channels bioconda-legacy
 ----
 
-==== Upgrade to newer R, Perl, Python
+===== Upgrade to newer R, Perl, Python
 
 It may be safe to upgrade to larger versions of R, Perl, Python, as long as the bioinformatic packages remain at the same version.
 
@@ -746,14 +831,14 @@ dependencies:
 <2> Changed from "=r3.3.2=5".
 <3> Left out the R version "=r3.3.2_0". Package is highly stable since before R 2.0.
 
-==== Other Solutions
+===== Other Solutions
 
   * Build a local version of the package with `conda build`
     - May require old package recipes from the channel's Github repositories
   * Keep a local channel copy?
   * Use containers or virtual machines to avoid having to reinstall the Conda environment
 
-== Summary
+=== Summary
 
   * Conda has probably the largest community of bioinformatic package contributors.
   * With Conda it is easy and fast to set up environments.
