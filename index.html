@@ -972,7 +972,7 @@ table.CodeRay td.code>pre{padding:0}
 <h4 id="_r_example_with_git2r">R Example with <a href="https://github.com/ropensci/git2r">git2r</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="R">&gt; library(&quot;git2r&quot;) # <b class="conum">(1)</b>
+<pre class="CodeRay highlight"><code data-lang="r">&gt; library(&quot;git2r&quot;) # <b class="conum">(1)</b>
 &gt; repo &lt;- repository(&quot;/path/to/your/repo/dir&quot;) # <b class="conum">(2)</b>
 &gt; is_dirty &lt;- function(status) {
     length(status$unstaged) != 0 || length(status$untracked) != 0 # <b class="conum">(3)</b>
@@ -984,7 +984,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="colist arabic">
 <ol>
 <li>
-<p>Load the R library for accessing git repositories (you can get it from <a href="https://cran.r-project.org/web/packages/git2r/index.html">CRAN</a>)</p>
+<p>Load the R library for accessing git repositories</p>
 </li>
 <li>
 <p>Get a handle for the repository</p>
@@ -1000,9 +1000,6 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>Simply add the <code>commitHash</code> to your figures, output directories, filenames, or similar.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_python_example_with_gitpython">Python Example with <a href="https://gitpython.readthedocs.io/en/stable/intro.html">gitpython</a></h4>
@@ -1013,15 +1010,24 @@ table.CodeRay td.code>pre{padding:0}
 &gt; repo = Repo(<span class="string"><span class="delimiter">&quot;</span><span class="content">/path/to/your/repo/dir</span><span class="delimiter">&quot;</span></span>) # <b class="conum">(2)</b>
 &gt; <span class="keyword">if</span> (repo.is_dirty()): <span class="keyword">raise</span> <span class="exception">Exception</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Not proceeding! Repo is dirty!</span><span class="delimiter">&quot;</span></span>) # <b class="conum">(3)</b>
 &gt; commitHash = repo.head.commit.__str__() # <b class="conum">(4)</b>
-----
-&lt;<span class="integer">1</span>&gt; Load the R library <span class="keyword">for</span> accessing git repositories (you can get it <span class="keyword">from</span> <span class="include">https</span>://cran.r-project.org/web/packages/git2r/index.html[CRAN])
-&lt;<span class="integer">2</span>&gt; Get a handle <span class="keyword">for</span> the repository
-&lt;<span class="integer">3</span>&gt; Check that the repository <span class="keyword">is</span> clean, i.e. all changes are committed
-&lt;<span class="integer">4</span>&gt; Get the unique identifier of the current repository commit</code></pre>
+----</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Simply add the <code>commitHash</code> to your figures, output directories, filenames, or similar.</p>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Load the Python library for accessing git repositories</p>
+</li>
+<li>
+<p>Get a handle for the repository</p>
+</li>
+<li>
+<p>Check that the repository is clean, i.e. all changes are committed</p>
+</li>
+<li>
+<p>Get the unique identifier of the current repository commit</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -2137,7 +2143,7 @@ git clone</p>
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2019-02-26 18:49:35 +0100
+Last updated 2019-02-26 18:52:33 +0100
 </div>
 </div>
 </body>
