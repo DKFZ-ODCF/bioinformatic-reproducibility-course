@@ -136,9 +136,9 @@ image::reproducibility.png[Reproducibility,width=500]
   * Ensure your repo is clean
   * Put your commit hash into figures and files
 
-==== R Example
+==== R Example with https://github.com/ropensci/git2r[git2r]
 
-[source,R]
+[source,r]
 ----
 > library("git2r") # <1>
 > repo <- repository("/path/to/your/repo/dir") # <2>
@@ -148,15 +148,14 @@ image::reproducibility.png[Reproducibility,width=500]
 > if (is_dirty(status(repo))) { stop("Not proceeding! Repo is dirty!"); } # <4>
 > commitHash <- sha(head(repo)) # <5>
 ----
-<1> Load the R library for accessing git repositories (you can get it from https://cran.r-project.org/web/packages/git2r/index.html[CRAN])
+
+<1> Load the R library for accessing git repositories
 <2> Get a handle for the repository
 <3> Definition of "dirty": there are unstaged changes or untracked files
 <4> Check that the repository is clean, i.e. all changes are committed
 <5> Get the unique identifier of the current repository commit
 
-Simply add the `commitHash` to your figures, output directories, filenames, or similar.
-
-==== Python Example
+==== Python Example with https://gitpython.readthedocs.io/en/stable/intro.html[gitpython]
 
 [source,python]
 ---
@@ -165,12 +164,11 @@ Simply add the `commitHash` to your figures, output directories, filenames, or s
 > if (repo.is_dirty()): raise Exception("Not proceeding! Repo is dirty!") # <3>
 > commitHash = repo.head.commit.__str__() # <4>
 ----
-<1> Load the R library for accessing git repositories (you can get it from https://cran.r-project.org/web/packages/git2r/index.html[CRAN])
+
+<1> Load the Python library for accessing git repositories
 <2> Get a handle for the repository
 <3> Check that the repository is clean, i.e. all changes are committed
 <4> Get the unique identifier of the current repository commit
-
-Simply add the `commitHash` to your figures, output directories, filenames, or similar.
 
 ==== Other Languages
 
