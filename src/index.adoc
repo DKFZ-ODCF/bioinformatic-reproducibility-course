@@ -4,9 +4,9 @@ v2.0, 2019-03-06
 :doctype: book
 :docinfo:
 
-image::reproducibility.png[Reproducibility,width=500]
-
 == Overview
+
+image::reproducibility.png[Reproducibility,width=500]
 
   * Workflow Management Systems
   * Notes on Programming
@@ -17,13 +17,13 @@ image::reproducibility.png[Reproducibility,width=500]
 == Workflow Management Systems
 
   * A "workflow" is
-    * A program that does data processing steps
+    - A program that does data processing steps
 
   * Workflow Management Systems
-    * Syntax for defining workflows
-    * Manage dependencies between data and processing steps
-    * Abstract from execution backends (e.g. different batch processing systems)
-    * Log execution to easy reproduction
+    - Syntax for defining workflows
+    - Manage dependencies between data and processing steps
+    - Abstract from execution backends (e.g. different batch processing systems)
+    - Log execution to ease reproduction
 
 === No Standards
 
@@ -34,93 +34,112 @@ image::reproducibility.png[Reproducibility,width=500]
     - https://www.nextflow.io/[Nextflow] (Groovy)
     - https://www.commonwl.org/[CWL]
     - WDL (https://github.com/broadinstitute/cromwell[Cromwell])
+  * Choice usually driven by taste and peers
 
-== Some Notes on "Programming"
+== Notes on Programming
 
-  * Communication
-    - Computer must understand your code
-    - Your future *you* must understand your code
-    - Others must understand your code
-  * Complexity management
-    - Biological systems are complex
-    - Bioinformatic code to analyze biological systems is complex
-    - Complexity increases with the time you add analyses
+  * What is programming?
+  ** Writing a workflow
+  ** Plotting something in R
+  ** Logging in to a computer checks s.th. on the shell
+  ** Composing a workflow in Galaxy
+
+=== Programming as Communication
+
+  * Computer must understand your code
+  * Your future *you* must understand your code
+  * Others must understand your code, because you have to
+  ** leave the lab
+  ** explain your approach
+  ** publish the code
+
+=== Programming as Complexity Management
+
+  * Biological systems are complex
+  * Bioinformatic code to analyze biological systems is complex
+  * Complexity increases while you add analyses to your project
+
+NOTE: Code is living. It changes while you fix bugs and extend it.
 
 === Programming Languages
 
-  * Writing a workflow is programming
-  * Log in to a computer and you'll get a shell
-    - Doing s.th. on the shell is programming
-  * Understand
-    - Every programming language has its strengths and weaknesses
+  * Every programming language has its strengths and weaknesses
 
 ==== Bash
 
   * Frequently default shell on Linux environments
   * Good for
-    - Doing quick checks of files
-    - Top-level automatization of multiple tools into *simple* workflows
-    - Plugging together (few) components
+  ** Doing quick checks of files
+  ** Top-level automatization of multiple tools into *simple* workflows
+  ** Plugging together (few) components
   * Bad for
-    - Working with complex data
-    - Workflows with more than 2-3 steps
-    - Handling errors (they will happen!)
+  ** Working with complex data
+  ** Workflows with more than 2-3 steps and branchings
+  ** Handling errors (they will happen!)
 
 ==== R
 
   * Good for
-    - Statistics
-    - Exploratory data analysis
-    - Data plotting
+  ** Statistics
+  ** Exploratory data analysis
+  ** Data plotting
   * Bad for
-    - Text processing
+  ** Text processing
+  ** Large datasets (because of memory management)
+  ** Parallel processing
 
 ==== Python, Perl, Ruby or other Scripting Languages
 
   * Scripting languages are not "compiled" into binaries (assembly language)
   * Good for
-    - More serious programming
-    - Handling more complex data
-    - Get going quickly
+  ** Serious programming
+  ** Handling complex data
+  ** Get going quickly both for learning and analyzing
   * Bad for
-    - Really fast processing (except numerics)
-    - Very complex programs
+  ** Really fast processing (except numerics or text)
+  ** Very complex programs
+  ** More aspects of program correctness need to be checked by programmer (through tests and assertions)
   * Python has pretty good numerical/statistical libraries
 
 ==== Compiled Languages
 
   * Good for
-    - Very complex programs
-    - Tuning towards super-fast applications
-    - Support you by advanced (static) checking of data types
+  ** Very complex programs
+  ** Tuning towards super-fast applications
+  ** Support you by advanced (static) checking of data types
   * Bad for
-    - Get going quickly
+  ** Additional hurdles for learning
+  ** Get going quickly
 
 === Programming Power Tools
 
   * Code review
   * Ask a software developer
-  * Use an IDE (PyCharm, IntelliJ IDEA, ...)
+  * Use an integrated development environment [IDE] (PyCharm, IntelliJ IDEA, ...)
   * Automated tests
-    - Unit testing frameworks
-    - Even in Bash [shunit2]
+  ** Ensure your program remains correct
+  ** Unit testing frameworks
+  ** Even in Bash [shunit2]
+  * Use a version control system
 
 == Version Control Systems
 
-  * Manage many versions of your code
+  * Manage many versions of your [living] code
   * Code is usually is some form of text
-    - Programming language code (Python, Perl, R, etc.)
-    - Workflow descriptions
-    - Documentation
+  ** Programming language code (Python, Perl, R, etc.)
+  ** Workflow descriptions
+  ** Documentation
   * Diverse tools
-    - SNV, CVS, Mercurial, **Git**, ...
+  ** SNV, CVS, Mercurial, **Git**, ...
 
-=== Terminology
+=== Terminology for Git
 
   * Code is stored in a "repository"
   * Registering code as version valuable enough to track is called "committing"
+  * Marking files to be committed is called "staging"
   * Every version is associated with a number (usually "hash" code)
   * Parallel development lines are tracked in "branches"
+  * The active code base on filesystem is the "checked out" branch (plus uncommitted changes)
   * Main development line is the "master branch"
 
   TODO: Picture?
@@ -129,12 +148,18 @@ image::reproducibility.png[Reproducibility,width=500]
 
   * A good and simple guideline to track development code is https://guides.github.com/introduction/flow/[Github Flow]
   * Git Book @ https://git-scm.com/book/en/v2
+  * Consider using a Git GUI (NOTE: Code is living[here] a list) or an IDE that knows Git
   * https://guides.github.com/introduction/flow/[Happy Git and Github for useR]
+  * Track your data versions with https://git-lfs.github.com/[git-lfs]
 
-=== VCS Xtreme
+=== One Step Further
 
+  * Link data to repository state
   * Ensure your repo is clean
   * Put your commit hash into figures and files
+  * Git-bindings available for all programming languages
+
+NOTE: Tracking code versions is often not enough. Consider using https://git-lfs.github.com/[git-lfs].
 
 ==== R Example with https://github.com/ropensci/git2r[git2r]
 
@@ -143,7 +168,9 @@ image::reproducibility.png[Reproducibility,width=500]
 > library("git2r") # <1>
 > repo <- repository("/path/to/your/repo/dir") # <2>
 > is_dirty <- function(status) {
-    length(status$unstaged) != 0 || length(status$untracked) != 0 # <3>
+    length(status$staged) != 0 ||
+      length(status$unstaged) != 0 ||
+        length(status$untracked) != 0 # <3>
 }
 > if (is_dirty(status(repo))) { stop("Not proceeding! Repo is dirty!"); } # <4>
 > commitHash <- sha(head(repo)) # <5>
@@ -151,7 +178,7 @@ image::reproducibility.png[Reproducibility,width=500]
 
 <1> Load the R library for accessing git repositories
 <2> Get a handle for the repository
-<3> Definition of "dirty": there are unstaged changes or untracked files
+<3> Definition of "dirty": there are uncommitted changes or files
 <4> Check that the repository is clean, i.e. all changes are committed
 <5> Get the unique identifier of the current repository commit
 
@@ -169,11 +196,6 @@ image::reproducibility.png[Reproducibility,width=500]
 <2> Get a handle for the repository
 <3> Check that the repository is clean, i.e. all changes are committed
 <4> Get the unique identifier of the current repository commit
-
-==== Other Languages
-
-   * Java: jgit
-   * Perl: ...
 
 == Software deployment ...
 
