@@ -3,9 +3,12 @@ Philip R. Kensche & Michael Heinold
 v2.0, 2019-03-06
 :doctype: book
 :docinfo:
+:toc:
+:toclevels: 2
 
 * HTML 5 Document:   https://dkfz-odcf.github.io/bioinformatic-reproducibility-course
 * Github Repository: https://github.com/DKFZ-ODCF/bioinformatic-reproducibility-course
+
 
 == Definition "Reproducibility"
 
@@ -13,26 +16,25 @@ Modified after Wikipedia:
 
   Closeness of the agreement between different measurements of the same measurand using the same methodology.
 
-* E.g. in-experiment reproducibility quantified as standard deviation
-
+* Quantified within experiments e.g. as standard deviation
 * Measurements at various scales of mathematical derivation
 ** "Raw" data is produced by the sensor hardware
-** Derived measurements are used to interpret the results
-
 * "... using the same methodology."
-** All numbers must be described such that ...
-*** ... they can be interpreted
-*** ... they can be reproduced [exactly] from the same raw data
+** Interpretability
+** Exact reproducibility from the same raw data
 
 NOTE: Reproducibility ensures refutability based on methodological reasons!
 
 == Limits of Reproducibility
 
-* Wet-lab: possible but never exact
-* _In silico_: exact reproducibility seems possible but
-** Limited by data biases and noise
-** Limited by computer hardware
-* At some point further investment to reproduce results is futile!
+* Wet-lab
+** Possible but never exact
+* _In silico_
+** Exact reproducibility seems possible but ...
+*** ... limited by data biases and noise
+*** ... limited by computer hardware
+
+NOTE: At some point further investment to reproduce results is waste of time!
 
 == Overview
 
@@ -224,12 +226,12 @@ NOTE: Code is living. It changes while you fix bugs and extend it. And it can gr
 
 image::github-flow-branching-model-0606fb12b7a55784a3b52833fd015ebd-e0740.png[TheGitHubflow,width=500]
 
-  * Registering code as version valuable enough to track is called "committing"
-  * Every commit is associated with a number (the "hash")
-  * Parallel development lines are tracked in "branches"
-  * The active code base on filesystem is the "checked out" branch (plus uncommitted changes)
-  * Main development line is the "master branch"
-  * Fixed versions can be marked with a tag
+  * Commit: registered code version
+  * Hash: number associated with commit
+  * Branches: parallel development lines
+  * Checkout: active registered code base on filesystem (plus uncommitted changes)
+  * Master branch: main development line
+  * Tag: named commit
 
 ==== How to use?
 
@@ -238,7 +240,7 @@ image::github-flow-branching-model-0606fb12b7a55784a3b52833fd015ebd-e0740.png[Th
     - https://www.nicoespeon.com/en/2013/08/which-git-workflow-for-my-project/[Which git workflow for my project?]
     - http://mateuszmistecki.pl/2017/03/27/github-flow/[Another GitHub Flow page]
   * Git Book @ https://git-scm.com/book/en/v2
-  * Consider using a Git GUI (NOTE: Code is living[here] a list) or an IDE that knows Git
+  * Consider using a Git GUI or an IDE that knows Git
   * https://guides.github.com/introduction/flow/[Happy Git and Github for useR]
 //  * Track your data versions with https://git-lfs.github.com/[git-lfs]
 
@@ -435,7 +437,7 @@ cloud "de.NBI Cloud" {
 ==== Final Remarks on Conda
 
 * Tons of tutorials online
-** One at the end of this document
+** link:conda-tutorial.html[here]
 * Long-term package availability is not 100%
 ** Use "Bioconda" together with "bioconda-legacy" channel
 ** Backup the `pkgs/` directory in your Conda installation!
