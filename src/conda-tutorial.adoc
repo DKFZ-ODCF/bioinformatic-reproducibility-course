@@ -469,5 +469,5 @@ dependencies:
 
 Unless otherwise stated, this work and all parts of its are licensed under a http://creativecommons.org/licenses/by-nc-sa/4.0/[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License].
 
-image::1920px-Cc-by-nc-sa_euro_icon.svg.png[license icon, width=100]
+image::1920px-Cc-by-nc-sa_euro_icon.svg.png[license icon, width=100, height=auto]
 
