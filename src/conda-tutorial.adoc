@@ -1,0 +1,473 @@
+= A Conda Tutorial
+Philip R. Kensche & Michael Heinold
+v2.0, 2019-03-06
+:doctype: book
+:docinfo:
+
+* HTML 5 Document:   https://dkfz-odcf.github.io/bioinformatic-reproducibility-course
+* Github Repository: https://github.com/DKFZ-ODCF/bioinformatic-reproducibility-course
+
+== Install Miniconda
+
+[source,bash]
+----
+$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh <1>
+$ bash Miniconda3-latest-Linux-x86_64.sh
+$ source $HOME/.bashrc
+----
+<1> alternatively take `curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh` or just your browser.
+
+WARNING: Choose a place where you have a enough free space. Environments are (by default) also installed there and each can take up 100s of megabytes. E.g. use `df -h` to get information about free space.
+
+Now start conda and get some information about the interface:
+
+[source,bash]
+----
+$ conda
+usage: conda [-h] [-V] command ...
+
+conda is a tool for managing and deploying applications, environments and packages.
+
+Options:
+
+positional arguments:
+  command
+    info         Display information about current conda install.
+    help         Displays a list of available conda commands and their help
+                 strings.
+    list         List linked packages in a conda environment.
+    search       ...
+    create       ...
+    install      ...
+...
+----
+
+\... and the basic configuration information:
+
+```bash
+$ conda info
+Current conda install:
+
+               platform : linux-64
+          conda version : 4.3.21
+       conda is private : False
+      conda-env version : 4.3.21
+    conda-build version : not installed
+         python version : 3.6.1.final.0
+       requests version : 2.14.2
+       root environment : /path/to/your/miniconda3  (writable)
+    default environment : /path/to/your/miniconda3
+       envs directories : /path/to/your/miniconda3/envs
+                          /path/to/your/.conda/envs
+          package cache : /path/to/your/miniconda3/pkgs
+                          /path/to/your/.conda/pkgs
+           channel URLs : https://repo.continuum.io/pkgs/free/linux-64
+                          https://repo.continuum.io/pkgs/free/noarch
+                          https://repo.continuum.io/pkgs/r/linux-64
+                          https://repo.continuum.io/pkgs/r/noarch
+                          https://repo.continuum.io/pkgs/pro/linux-64
+                          https://repo.continuum.io/pkgs/pro/noarch
+                          https://conda.anaconda.org/r/linux-64
+                          https://conda.anaconda.org/r/noarch
+            config file : /path/to/your/.condarc
+             netrc file : None
+           offline mode : False
+             user-agent : conda/4.3.21 requests/2.14.2 CPython/3.6.1 Linux/3.10.0-514.el7.x86_64 CentOS Linux/7.3.1611 glibc/2.17
+                UID:GID : 21917:1110
+
+```
+
+== Channels
+
+* Channels are conda's package repositories
+* Multiple channels can be used at the same time with different priorities
+
+[source,bash]
+----
+$ conda config --add channels defaults     <1>
+$ conda config --add channels conda-forge
+$ conda config --add channels bioconda
+$ conda config --add channels bioconda-legacy <2>
+----
+<1> Ananconda Inc.'s default channels
+<2> Packages removed from bioconda
+
+Each command adds a channel with higher priority than the previous commands.
+
+Now the output of ...
+
+[source,bash]
+----
+$ conda info
+...
+channel URLs : https://conda.anaconda.org/bioconda-legacy/linux-64  <1>
+               htttps://conda.anaconda.org/bioconda-legacy/noarch   <1>
+               https://conda.anaconda.org/bioconda/linux-64         <1>
+               https://conda.anaconda.org/bioconda/noarch           <1>
+               https://conda.anaconda.org/conda-forge/linux-64      <1>
+               https://conda.anaconda.org/conda-forge/noarch        <1>
+               https://repo.continuum.io/pkgs/free/linux-64
+               https://repo.continuum.io/pkgs/free/noarch
+               https://repo.continuum.io/pkgs/r/linux-64
+               https://repo.continuum.io/pkgs/r/noarch
+               https://repo.continuum.io/pkgs/pro/linux-64
+               https://repo.continuum.io/pkgs/pro/noarch
+               https://conda.anaconda.org/r/linux-64
+               https://conda.anaconda.org/r/noarch
+...
+----
+<1> \... will show the updated channel list with the "bioconda-legacy", "bioconda" and "conda-forge channels.
+
+
+== Finding Packages
+[source,bash]
+----
+$ conda search -h
+usage: conda search [-h] [-n ENVIRONMENT | -p PATH] [-i] [-C]
+                    [--platform PLATFORM] [--reverse-dependency] [--offline]
+                    [-c CHANNEL] [--override-channels] [--json] [--debug]
+                    [--verbose] [--use-local] [-k] [--envs]
+...
+
+$ conda search samtools
+Loading channels: done
+# Name                  Version           Build  Channel
+samtools                 0.1.12               0  bioconda
+samtools                 0.1.12               1  bioconda
+samtools                 0.1.12               2  bioconda
+...
+samtools                 0.1.19               0  bioconda
+samtools                 0.1.19               1  bioconda
+samtools                 0.1.19               2  bioconda
+samtools                 0.1.19               3  bioconda
+samtools                    1.0               0  bioconda
+samtools                    1.0               1  bioconda
+samtools                    1.0      hdd8ed8b_2  bioconda
+samtools                    1.1               0  bioconda
+...
+samtools                    1.8               2  bioconda
+samtools                    1.8               3  bioconda
+samtools                    1.8               4  bioconda
+samtools                    1.8      h46bd0b3_5  bioconda
+----
+
+First, you'll notice that a search can take some time!
+
+The output shows which package versions match the search expression and are available from which channel in which version.
+
+Note that the build version sometimes is pretty simple, but sometimes rather cryptic. Build versions represent the same package but with changed
+
+  * Compile parameters
+  * Dependencies (numpy, ...)
+  * Interpreters (Perl, Python, R, ...)
+  * Commit hashes (where you can hope they produce the same results)
+    - Commit hashes are identifiers given to individually tracked versions of a software
+    - No officially released versions
+
+You can also search for specific package versions and builds:
+
+[source,bash]
+----
+$ conda search samtools==0.1.19  <1>
+Loading channels: done
+# Name                  Version           Build  Channel
+samtools                 0.1.19               0  bioconda
+samtools                 0.1.19               1  bioconda
+samtools                 0.1.19               2  bioconda
+samtools                 0.1.19               3  bioconda
+
+$ conda search '*samtools'       <2>
+Loading channels: done
+# Name                  Version           Build  Channel
+bioconductor-rsamtools          1.22.0        r3.2.2_0  bioconda
+bioconductor-rsamtools          1.22.0        r3.2.2_1  bioconda
+bioconductor-rsamtools          1.24.0        r3.3.1_0  bioconda
+bioconductor-rsamtools          1.26.1        r3.3.1_0  bioconda
+bioconductor-rsamtools          1.26.1        r3.3.2_0  bioconda
+bioconductor-rsamtools          1.26.1        r3.4.1_0  bioconda
+bioconductor-rsamtools          1.28.0        r3.4.1_0  bioconda
+bioconductor-rsamtools          1.30.0        r3.4.1_0  bioconda
+perl-bio-samtools                 1.43               0  bioconda
+samtools                        0.1.12               0  bioconda
+samtools                        0.1.12               1  bioconda
+...
+----
+<1> You can also try `conda search 'samtools>=1'`.
+<2> The quotes prevent globing the asterisk by the shell.
+
+TIP: Check the Conda documentation on https://conda.io/docs/user-guide/tasks/build-packages/package-spec.html[package specification] for a description of the match pattern if you need to do complex searches.
+
+
+== Environments
+
+Environments allow you to handle different -- potentially incompatible -- sets of tools.
+
+To list all available environments you can do:
+
+[source,bash]
+----
+$ conda list                 <1>
+# conda environments:
+#
+base                  *  /path/to/your/miniconda3
+----
+<1> An equivalent command is `conda info --envs`
+
+Let's create a new environment with another great tool for reproducible research:
+
+[source,bash]
+----
+$ conda create -n interactive-analysis jupyter-notebook scipy
+----
+
+First this shows you which exact versions and builds will be installed. For a single tool a large number of dependencies may be pulled in. This request will install about 125 MB of tools! Many of them are likely not used or needed by you.
+
+After you confirmed that the installation is o.k. the packages will get downloaded. When finished you can see the "interactive-analysis" in the list of your environments.
+
+[source,bash]
+----
+$ conda env list
+# conda environments:
+#
+base                  *  /path/to/your/miniconda3
+interactive-analysis     /path/to/your/miniconda3/envs/interactive-analysis
+----
+
+Let's first try
+
+[source,bash]
+----
+$ jupyter notebook
+bash: jupyter: Command not found
+----
+
+That's probably the obvious outcome of this negative control experiment :-P
+
+Now switch to the newly installed environment and try out your new toy:
+
+[source,bash]
+----
+$ source activate interactive-analysis
+$ jupyter notebook
+----
+
+Jupyter notebook will show a URL on the standard output and open it in a browser. You can then start a "Python 3 kernel" at the top right in the bar ...
+
+image::Jupyter1.png[Jupyter]
+
+\... and then enter arbitary Python 3 expressions, such as
+
+[source,python]
+----
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as sp
+import math
+
+mu = 0
+variance = 1
+sigma = math.sqrt(variance)
+x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
+plt.plot(x,sp.norm.pdf(x, mu, sigma))
+plt.show()
+----
+
+image::Jupyter2.png[Plot]
+
+NOTE: Jupyter provides kernels as programming language backends. A complete list can be found at https://github.com/jupyter/jupyter/wiki/Jupyter-kernels.
+
+=== Oops!
+
+Actually, in my case when starting the Python kernel in Jupyter, I got an error message. Apparently, the specific version of the Jupyter package was broken!
+
+This is not only a demonstration of the daily life in bioinformatics but also the ideal opportunity to demonstrate that you can install arbitrary Python packages in this environment using the `pip` tool. So after ...
+
+[source,bash]
+----
+$ pip install jupyter -U
+----
+
+\... an up-to-date Jupyter Notebook package is installed in the environment!
+
+== Leaving Environments
+
+After you are done with your work, you can do ...
+
+[source,bash]
+----
+$ source deactivate
+----
+
+\... to restore you original, Conda-free environment.
+
+== Sharing Environments
+
+How to transfer an environment to a different machine?
+
+1. Export the environment specification into a YAML file.
++
+```bash
+$ conda env export -n interactive-analysis > environment.yaml
+```
++
+The resulting YAML file looks like this:
++
+[source,yaml]
+----
+name: interactive-analysis
+channels:
+  - defaults
+  - r
+  - bioconda
+  - conda-forge
+dependencies:
+  - bleach=1.4.2=py36_0
+  - ca-certificates=2017.11.5=0
+  - certifi=2017.11.5=py36_0
+  - dbus=1.10.22=0
+  - samtools=4.1.2=py36_0
+  ...
+prefix: /path/to/your/miniconda3/envs/interactive-analysis
+----
++
+The `prefix` line shows a local path and is non-essential. It can be removed when publishing.
+
+2. Copy the file to the target machine.
+
+3. Create a new environment using the file. We just make a local copy for demonstration, but you could equally execute this on a different system.
++
+[source,bash]
+----
+$ conda env create -n interactive-analysis-copy -f environment.yaml
+----
+
+After this you can `source activate` the new environment!
+
+== Removing Environments
+
+Let's remove the copy of the "interactive-analysis" environment we just created:
+
+[source,bash]
+----
+$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis
+interactive-analysis-copy  /path/to/your/miniconda3/envs/interactive-analysis-copy
+
+$ conda env remove -n interactive-analysis-copy
+
+$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis
+----
+
+== Renaming Environments
+
+There is no dedicated renaming command. Instead, renaming an environment is done by "cloning" it and removing the original:
+
+[source,bash]
+----
+$ conda create --clone interactive-analysis -n my-nature-publication
+$ conda remove -n interactive-analysis
+$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication
+----
+
+== Limitations
+
+Conda is easy to install and use, but also has its limitations.
+
+  * Of each package only a single version can be installed
+  * `conda install` can be slow or may even refuse to terminate
+  * `conda install` may fail to find non-conflicting package versions
+  * Dependencies in the "build recipes" can be too narrow or too wide
+  * Contributing recipes can be hard
+    - Not all software is accepted by all channels
+    - Different channels provide different tooling for contributing packages ("continuous integration")
+  * *Packages can get lost!* (So far for reproducibility!)
+
+=== Package Loss?
+
+  * Complete rebuild of channels
+    - May result in updated build dependencies (Perl, R, Python)
+  * Packages get moved between channels (e.g. Bioconda &harr; Conda Forge)
+    - May result in updated build dependencies (Perl, R, Python)
+  * Packages get completely removed
+
+How to cope with these problems?
+
+==== "bioconda-legacy" Channel
+
+*Some* outdated packages can still be present there.
+
+Search in 'bioconda-legacy' without adding it to the channel queue:
+
+[source,bash]
+----
+$ conda search -c bioconda-legacy 'r-getopt==1.20.0=r3.2.2_0'
+----
+
+Add the channel to your channel list with
+
+[source,bash]
+----
+$ conda config --add channels bioconda-legacy
+----
+
+==== Upgrade to newer R, Perl, Python
+
+It may be safe to upgrade to newer versions of R, Perl, Python, as long as the bioinformatics packages remain at the
+same version.
+
+  * Remove version constraints from the exported environment YAML file
+  * Let Conda find a suited package version
+
+[source,yaml]
+----
+name: interactive-analysis
+channels:
+  - defaults
+  - r
+  - bioconda
+  - conda-forge
+dependencies:
+  - ca-certificates             <1>
+  - r-base=3.3.*                <2>
+  - r-lattice=0.20_34           <3>
+  ...
+----
+<1> Complete version removed. Package has little influence on the analysis.
+<2> Changed from "=r3.3.2=5".
+<3> Left out the R version "=r3.3.2_0". Package is highly stable since before R 2.0.
+
+==== Other Solutions
+
+  * Build a local version of the package with `conda build`
+  ** May require old package recipes from the channel's Github repositories
+  ** Keep the `pkgs` directory in your Conda installation
+  *** Archives in there can be used to build your own channel
+  * Use containers or virtual machines to avoid having to reinstall the Conda environment
+  ** Rebuilding the container/VM will not be possible without the packages, though
+
+== Summary
+
+  * Conda has probably the largest community of bioinformatics package contributors
+  * With Conda it is easy and fast to set up environments
+  * You can contribute recipes for packages you need or your own packages
+  * Conda can well be combined with container technology, like https://singularity.lbl.gov/[Singularity] or https://www.docker.com/[Docker]
+     - at the cost of additional complexity
+     - BioConda has automatic building of Docker and Singularity containers to https://conda.io/docs/[BioContainers]
+
+== License
+
+Unless otherwise stated, this work and all parts of its are licensed under a http://creativecommons.org/licenses/by-nc-sa/4.0/[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License].
+
+image::1920px-Cc-by-nc-sa_euro_icon.svg.png[license icon, width=100]
+
