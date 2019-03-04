@@ -4,26 +4,85 @@ v2.0, 2019-03-06
 :doctype: book
 :docinfo:
 
+== Definition
+
+  Closeness of agreement between different measurements of the same measurand using the same methodology.
+
+* E.g. in-experiment reproducibility ~ standard deviation
+
+* Measurements at various scales of mathematical derivation
+** "Raw" data is produced by the sensor hardware
+** Derived measurements are used to interpret the results
+
+* Methodology needs to be described to allow for reproduction of the results
+** All numbers must be described such that ...
+*** ... they can be interpreted
+*** ... they can be reproduced [exactly] from the same raw data
+
+NOTE: Reproducibility ensures refutability based on methodological reasons!
+
+== Limits of Reproducibility
+
+* Wet-lab: possible but never exact
+* _In silico_: exact reproducibility seems possible but
+** Limited by data biases and noise
+** Limited by computer hardware
+* There is a point, where further investment to reproduce results is futile!
+
 == Overview
 
 image::reproducibility.png[Reproducibility,width=500]
 
-  * Workflow Management Systems
-  * Notes on Programming
-  * Version Control
-  * Software Deployment, Containers & Virtualiziation
-  * Literate Programming
+== Tools
+
+* Bioinformatic Research Workflow
+* Workflow Management Systems
+* Notes on Programming
+* Version Control
+* Software Deployment, Containers & Virtualiziation
+* Literate Programming
+
+== A Bioinformatic Research Workflow
+
+=== Prototyping
+
+* Quick & leaky (& correct)
+* Aim: Learn about the general problems of the question
+* Throw away!
+* Often done in interactive sessions
+
+=== Exploration
+
+* Made to last
+* Log analysis, decisions, interpretations
+* Log errors, failure, conclusions & steps towards the correct solution
+* Not meant to share
+
+=== Reconciliation
+
+* Based on canonical set of intermediate results
+* High certainty and consistency
+* Arranged by interpretation & reasoning
+* Sufficient to communicate to cooperation partners
+
+=== Publication
+
+* Very high certainty
+* Highly tuned towards presentation
+* Selected after reconciliation
+* Publishable document
 
 == Workflow Management Systems
 
-  * A "workflow" is
-    - A program that does data processing steps
+  * A "workflow" is a program that does data processing steps
 
   * Workflow Management Systems
     - Syntax for defining workflows
-    - Manage dependencies between data and processing steps
     - Abstract from execution backends (e.g. different batch processing systems)
+    - Manage dependencies between data and processing steps
     - Log execution to ease reproduction
+
+NOTE: Many advantages over simple scripts.
 
 === No Standards
 
@@ -38,11 +97,13 @@ image::reproducibility.png[Reproducibility,width=500]
 
 == Notes on Programming
 
-  * What is programming?
-  ** Writing a workflow
-  ** Plotting something in R
-  ** Logging in to a computer checks s.th. on the shell
-  ** Composing a workflow in Galaxy
+=== What is programming?
+
+* Examples
+** Writing a workflow
+** Composing a workflow in Galaxy
+** Plotting something in R
+** Logging in to a computer checks s.th. on the shell
 
 === Programming as Communication
 
@@ -59,57 +120,80 @@ image::reproducibility.png[Reproducibility,width=500]
   * Bioinformatic code to analyze biological systems is complex
   * Complexity increases while you add analyses to your project
 
-NOTE: Code is living. It changes while you fix bugs and extend it.
+NOTE: Code is living. It changes while you fix bugs and extend it. And it can grow into a monster!
 
 === Programming Languages
 
   * Every programming language has its strengths and weaknesses
 
+==== R
+
+[cols="1a, 1a", options=header]
+|===
+| Good
+| Bad
+
+| * Statistics
+  * Exploratory data analysis
+  * Data plotting
+
+| * Text processing
+  * Large datasets (because of memory management)
+  * Parallel processing
+|===
+
+
 ==== Bash
 
   * Frequently default shell on Linux environments
-  * Good for
-  ** Doing quick checks of files
-  ** Top-level automatization of multiple tools into *simple* workflows
-  ** Plugging together (few) components
-  * Bad for
-  ** Working with complex data
-  ** Workflows with more than 2-3 steps and branchings
-  ** Handling errors (they will happen!)
 
-==== R
+[cols="1a, 1a", options=header]
+|===
+| Good
+| Bad
 
-  * Good for
-  ** Statistics
-  ** Exploratory data analysis
-  ** Data plotting
-  * Bad for
-  ** Text processing
-  ** Large datasets (because of memory management)
-  ** Parallel processing
+| * Doing quick checks of files
+  * Top-level automatization of multiple tools into *simple* workflows
+  * Plugging together (few) components
+
+| * Working with complex data
+  * Workflows with more than 2-3 steps and branchings
+  * Handling errors (they will happen!)
+|===
 
 ==== Python, Perl, Ruby or other Scripting Languages
 
-  * Scripting languages are not "compiled" into binaries (assembly language)
-  * Good for
-  ** Serious programming
-  ** Handling complex data
-  ** Get going quickly both for learning and analyzing
-  * Bad for
-  ** Really fast processing (except numerics or text)
-  ** Very complex programs
-  ** More aspects of program correctness need to be checked by programmer (through tests and assertions)
-  * Python has pretty good numerical/statistical libraries
+* Scripting languages are not "compiled" into binaries (assembly language)
+
+[cols="1a, 1a", options=header]
+|===
+| Good
+| Bad
+
+| * Serious programming
+  * Handling complex data
+  * Get going quickly both for learning and analyzing
+
+| * Really fast processing (except numerics or text)
+  * Very complex programs
+  * More aspects of program correctness need to be checked by programmer
+  ** through tests and assertions
+|===
 
 ==== Compiled Languages
 
-  * Good for
-  ** Very complex programs
-  ** Tuning towards super-fast applications
-  ** Support you by advanced (static) checking of data types
-  * Bad for
-  ** Additional hurdles for learning
-  ** Get going quickly
+[cols="1a, 1a", options=header]
+|===
+| Good
+| Bad
+
+| * Very complex programs
+  * Tuning towards super-fast applications
+  * Support you by advanced (static) checking of data types
+
+| * Additional hurdles for learning
+  * Get going quickly
+|===
 
 === Programming Power Tools
 
@@ -133,6 +217,8 @@ NOTE: Code is living. It changes while you fix bugs and extend it.
   ** SNV, CVS, Mercurial, **Git**, ...
 
 === Terminology for Git
+
+NOTE: TBD
 
   * Code is stored in a "repository"
   * Registering code as version valuable enough to track is called "committing"
@@ -190,14 +276,17 @@ NOTE: Tracking code versions is often not enough. Consider using https://git-lfs
 > repo = Repo("/path/to/your/repo/dir") # <2>
 > if (repo.is_dirty()): raise Exception("Not proceeding! Repo is dirty!") # <3>
 > commitHash = repo.head.commit.__str__() # <4>
-----
+---
 
 <1> Load the Python library for accessing git repositories
 <2> Get a handle for the repository
 <3> Check that the repository is clean, i.e. all changes are committed
 <4> Get the unique identifier of the current repository commit
 
+
 == Software deployment ...
+
+Why should that be important?
 
 === ... to publish and share
 [plantuml]
@@ -300,29 +389,17 @@ cloud "de.NBI Cloud" {
 @enduml
 ....
 
-== The Challenges ...
+=== The Challenges
 
-  * Many software tools in specific versions
-  * Pre-installed "department software stack"
-  * Where to download the correct versions and how to install them?
-  * Do this 1000 times?
-
-=== Software Deployment
-
-There are uncontrollable factors:
-
-* Software on the host operating system evolves
-  - Windows, Mac, dozens of Linux distributions, in different versions ...
+* Lots of software tools! Lots of versions!
+* Windows, Mac, dozens of Linux distributions, in different versions ...
 * Bioinformatic software packages may get lost
-* You don't want to waste you time with this technical stuff
-  - ... there are also the other reproducibility aspects
-  - ... and the publishing ...
+* Do this 1000 times?
+* Boring technical stuff
 
-NOTE: Implement reproducibility features as early as possible!
+=== Packaging System Requirements
 
-== Requirements
-
-* Quick and correct software deployment
+* Quick, easy & correct software deployment
 * Simple user-space installation without administrator rights
 * Manage multiple independent tool sets
 * Lots of packages ... maintained by s.b. else ;-D
@@ -346,56 +423,105 @@ NOTE: Implement reproducibility features as early as possible!
  - BioConda https://github.com/bioconda/bioconda-recipes[Recipes]
  - Most packages available for Linux
 
+=== Final Remarks on Conda
+
+* Tons of tutorials online
+** One at the end of this document
+* Long-term package availability is not 100%
+** Use "bioconda" together with "bioconda-legacy" channel
+** Backup the `pkgs/` directory in your Conda installation!
+
 == Virtualization & Containers
 
-  * Conda uses host-OS software that runs on the host system
-  * Virtualization separates host-OS and analysis environment
-    - Separation in terms of software and execution environment
-    - Virtualization provides complete separation in independent OS
+* Why?
+** You need to scale out to thousands of compute hours
+** Collaboration partners force you to
+
+===  Virtual Machines (VMs)
+
+  * Complete isolation of analysis environment
+  * Virtualization software (e.g. also for your desktop)
+  ** https://www.qemu.org/[KVM/QEMU], https://www.virtualbox.org/[VirtualBox], https://www.vmware.com/[VMWare]
 +
 image::13742_2016_135_Fig5_HTML.png[Virtualization]
 
-    - Containerization uses the host-operating system but provides separate environment for software deployment and execution
+=== Containers
 
+  * Use host-operating system (kernel)
+  * All software and libraries are installed in the container
+  * Container technologies
+  ** https://www.docker.com/[Docker]
+  ** https://singularity.lbl.gov/[Singularity]
+  ** https://coreos.com/rkt/docs/latest/[Rkt]
 +
 image::13742_2016_135_Fig6_HTML.png[Containers]
 
-  * Conda can easily be combined with virtualization technologies
+=== Cloud
 
-  * Virtualization technologies
-    - https://www.qemu.org/[KVM/QEMU]
-    - https://www.virtualbox.org/[VirtualBox]
-    - https://www.vmware.com/[VMWare]
-  * Cloud Virtualization
-    - Amazon Web Services
-    - OpenStack
-  * Container technologies
-    - https://www.docker.com/[Docker]
-    - https://singularity.lbl.gov/[Singularity]
-    - https://coreos.com/rkt/docs/latest/[Rkt]
+  * Usually VMs
+  * Simplified handling of multiple VMs
+  ** start/stop VMs as you need them
+  ** pay only what you need
+  ** additional advanced infrastructure at you fingertips
+  *** Large filesystems on demand
+  *** Object Store
+  *** GPUs
+  * Many cloud management systems
+  ** Commercial
+  *** Google Cloud, Amazon Web Services, Microsoft Azure, ...
+  ** OpenStack
+  *** Frequently used in science (e.g. https://www.denbi.de/cloud[de.NBI Cloud])
+  * You need administration knowledge
+  ** Tools that help you
+  *** Elasticluster
+  *** BibiGrid
+  *** ...
 
-* Example cloud environment, found frequently in science (e.g. https://www.denbi.de/cloud[de.NBI Cloud])
+== Literate Programming
 
-== Jupyter & Co.
+* Keep code and documentation together
+** Analysis code
+** Exploratory data analyses
+** Data analysis results and interpretations
+** Decision log
 
-  * "Literate programing"
-    * Integrate data processing, figures and free-text
-    * Commented analysis
-    * Decision log
-  * kernels = backends
-    * Bash
-    * Python
-    * R
-    * Spark
-    * ...
+=== Jupyter Notebook
+
+* Web-server
+** Easy installation _via_ Conda
+** Can run on a large server
+** Can be started with a single command:
++
+ jupyter notebook
+
+* Various backends (called "kernels")
+** Bash, Python, R, Spark
+* Integrated display code, figures & documentation:
++
+image::Jupyter2.png[Plot]
+
+* Notebooks can be saved and shared
+
+== Summary
+
+* Aspects of reproducible bioinformatics (incomplete :-) )
+** Development
+*** Programming
+*** Workflow management systems
+** Execution
+*** Changing computational environments
+*** Migration
+** Logging
+*** Versioning
+*** Literate programming
 
 == Further Material
 
-* Course PM7 and AM4 at the ISMB/ECCB 2019 in Basel @ https://www.iscb.org/ismbeccb2019-program/tutorials
+* Courses PM7 and AM4 at the ISMB/ECCB 2019 in Basel @ https://www.iscb.org/ismbeccb2019-program/tutorials
 * Conda User's Guide @ https://conda.io/docs/user-guide
 * BioConda article @ https://www.nature.com/articles/s41592-018-0046-7
 * NBIS Reproducible Science Course @ https://nbis-reproducible-research.readthedocs.io/en/latest/
-* Source code revisioning with Git @ https://git-scm.com/
+* Source code revisioning with https://git-scm.com/[Git]
   - Git Book @ https://git-scm.com/book/en/v2
   - Github Flow @ https://guides.github.com/introduction/flow/
 * https://reproduciblescience.org/directory[reproduciblescience.org]
@@ -854,9 +980,11 @@ dependencies:
 ===== Other Solutions
 
   * Build a local version of the package with `conda build`
-    - May require old package recipes from the channel's Github repositories
-  * Keep a local channel copy?
+  ** May require old package recipes from the channel's Github repositories
+  ** Keep the `pkgs` directory in your Conda installation
+  *** Archives in there can be used to build your own channel
   * Use containers or virtual machines to avoid having to reinstall the Conda environment
+  ** Rebuilding the container/VM will not be possible without the packages, though
 
 === Summary
 
@@ -869,13 +997,15 @@ dependencies:
 
 == Git
 
-git init
-git log
-git diff
-git stage
-git commit
-git push
-git pull
-git clone
+TBD
+
+init
+log
+diff
+stage
+commit
+push
+pull
+clone
 
 
