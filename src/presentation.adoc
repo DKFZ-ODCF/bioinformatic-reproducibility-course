@@ -1,0 +1,554 @@
+= Reproducibility in Bioinformatics
+Philip R. Kensche & Michael Heinold
+v2.0, 2019-03-06
+:doctype: book
+:docinfo:
+:toc:
+:toclevels: 2
+
+* HTML 5 Document:   https://dkfz-odcf.github.io/bioinformatic-reproducibility-course
+* Github Repository: https://github.com/DKFZ-ODCF/bioinformatic-reproducibility-course
+
+
+== Definition "Reproducibility"
+
+Modified after Wikipedia:
+
+  Closeness of the agreement between different measurements of the same measurand using the same methodology.
+
+* Quantified within experiments e.g. as standard deviation
+* Measurements at various scales of mathematical derivation
+** "Raw" data is produced by the sensor hardware
+* "... using the same methodology."
+** Interpretability
+** Exact reproducibility from the same raw data
+
+NOTE: Reproducibility ensures refutability based on methodological reasons!
+
+== Limits of Reproducibility
+
+* Wet-lab
+** Possible but never exact
+* _In silico_
+** Exact reproducibility seems possible but ...
+*** ... limited by data biases and noise
+*** ... limited by computer hardware
+
+NOTE: At some point further investment to reproduce results is waste of time!
+
+== Overview
+
+image::reproducibility.png[Reproducibility,width=500]
+
+== A Bioinformaticians Toolshed
+
+* Bioinformatic Research Workflow
+* Workflow Management Systems
+* Notes on Programming
+* Version Control
+* Software Deployment, Containers & Virtualiziation
+* Literate Programming
+
+=== A Bioinformatics Research Workflow
+
+==== Prototyping
+
+* Quick & leaky (& correct)
+* Aim: Learn about the general problems of the question
+* Throw away!
+* Often done in interactive sessions
+
+==== Exploration
+
+* Made to last
+* Log analysis, decisions, interpretations
+* Log errors, failure, conclusions & steps towards the correct solution
+* Not meant to share
+
+==== Reconciliation
+
+* Based on canonical set of intermediate results
+* High certainty and consistency
+* Arranged by interpretation & reasoning
+* Sufficient to communicate to cooperation partners
+
+==== Publication
+
+* Very high certainty
+* Highly tuned towards presentation
+* Selected after reconciliation
+* Publishable document
+
+=== Workflow Management Systems
+
+  * "workflow" = program
+
+  * Workflow Management Systems
+    - Syntax for defining workflows
+    - Abstract from execution backends (e.g. different batch processing systems)
+    - Manage dependencies between data and processing steps
+    - Log execution to ease reproduction
+
+==== No Standards
+
+  * Literally https://github.com/common-workflow-language/common-workflow-language/wiki/Existing-Workflow-systems[hundreds] of systems
+  * but ...
+    - https://galaxyproject.org/use/[Galaxy]
+    - https://bitbucket.org/snakemake/snakemake[Snakemake] (Python)
+    - https://www.nextflow.io/[Nextflow] (Groovy)
+    - https://www.commonwl.org/[CWL]
+    - WDL (https://github.com/broadinstitute/cromwell[Cromwell])
+  * Choice usually driven by taste and peers
+
+=== Notes on Programming
+
+==== What is programming?
+
+* Examples
+** Writing a workflow
+** Composing a workflow in Galaxy
+** Plotting something in R
+** Logging in to a computer checks s.th. on the shell
+
+==== Programming as Communication
+
+  * Computer must understand your code
+  * Your *future you* must understand your code
+  * Others must understand your code, because you have to
+  ** leave the lab
+  ** explain your approach
+  ** publish the code
+
+==== Programming as Complexity Management
+
+  * Biological systems are complex
+  * Bioinformatic code to analyze biological systems is complex
+  * Complexity increases while you add analyses to your project
+
+NOTE: Code is living. It changes while you fix bugs and extend it. And it can grow into a monster!
+
+==== Programming Languages
+
+  * Every programming language has its strengths and weaknesses
+
+===== R
+
+[cols="1a, 1a", options=header]
+|===
+| Pro
+| Con
+
+| * Statistics
+  * Exploratory data analysis
+  * Data plotting
+
+| * Text processing
+  * Large datasets (because of memory management)
+  * Parallel processing
+|===
+
+
+===== Bash
+
+  * Frequently default shell on Linux environments
+
+[cols="1a, 1a", options=header]
+|===
+| Pro
+| Con
+
+| * Doing quick checks of files
+  * Top-level automatization of multiple tools into *simple* workflows
+  * Plugging together (few) components
+
+| * Working with complex data
+  * Workflows with more than 2-3 steps and branchings
+  * Handling errors (they will happen!)
+|===
+
+===== Python, Perl, Ruby or other Scripting Languages
+
+* Scripting languages are not "compiled" into binaries (assembly language)
+
+[cols="1a, 1a", options=header]
+|===
+| Pro
+| Con
+
+| * Serious programming
+  * Handling complex data
+  * Get going quickly both for learning and analyzing
+
+| * Really fast processing (except numerics or text)
+  * Very complex programs
+  * More aspects of program correctness need to be checked by programmer
+  ** through tests and assertions
+|===
+
+===== Compiled Languages
+
+[cols="1a, 1a", options=header]
+|===
+| Pro
+| Con
+
+| * Very complex programs
+  * Tuning towards super-fast applications
+  * Support you by advanced (static) checking of data types
+
+| * Additional hurdles for learning
+  * Get going quickly
+|===
+
+==== Programming Power Tools
+
+  * Code review
+  * Ask a software developer
+  * Use an integrated development environment [IDE] (PyCharm, IntelliJ IDEA, ...)
+  * Automated tests
+  ** Ensure your program remains correct
+  ** Unit testing frameworks
+  ** Even in Bash [shunit2]
+  * Use a version control system
+
+=== Version Control Systems
+
+  * Manage many versions of your [living] code
+  * Code is usually is some form of text and stored in a "repository" (some form of "database")
+  ** Programming language code (Python, Perl, R, etc.)
+  ** Workflow descriptions
+  ** Documentation
+  * Diverse tools
+  ** SNV, CVS, Mercurial, **Git**, ...
+
+
+==== Terminology for Git
+
+image::github-flow-branching-model-0606fb12b7a55784a3b52833fd015ebd-e0740.png[TheGitHubflow,width=500]
+
+  * Commit: registered code version
+  * Hash: number associated with commit
+  * Branches: parallel development lines
+  * Checkout: active registered code base on filesystem (plus uncommitted changes)
+  * Master branch: main development line
+  * Tag: named commit
+
+==== How to use?
+
+  * Good and simple guidelines to track development code are:
+    - https://guides.github.com/introduction/flow/[GitHub Flow]
+    - https://www.nicoespeon.com/en/2013/08/which-git-workflow-for-my-project/[Which git workflow for my project?]
+    - http://mateuszmistecki.pl/2017/03/27/github-flow/[Another GitHub Flow page]
+  * Git Book @ https://git-scm.com/book/en/v2
+  * Consider using a Git GUI or an IDE that knows Git
+  * https://guides.github.com/introduction/flow/[Happy Git and Github for useR]
+//  * Track your data versions with https://git-lfs.github.com/[git-lfs]
+
+==== One Step Further
+
+  * Link data to repository state
+  * Ensure your repo is clean
+  * Put your commit hash into figures and files
+  * Git-bindings available for all programming languages
+
+NOTE: Tracking code versions is often not enough. Consider using https://git-lfs.github.com/[git-lfs].
+
+===== R Example with https://github.com/ropensci/git2r[git2r]
+
+[source,r]
+----
+> library("git2r") # <1>
+> repo <- repository("/path/to/your/repo/dir") # <2>
+> is_dirty <- function(status) {
+    length(status$staged) != 0 ||
+      length(status$unstaged) != 0 ||
+        length(status$untracked) != 0 # <3>
+}
+> if (is_dirty(status(repo))) { stop("Not proceeding! Repo is dirty!"); } # <4>
+> commitHash <- sha(head(repo)) # <5>
+----
+
+<1> Load the R library for accessing git repositories
+<2> Get a handle for the repository
+<3> Simple (!) definition of "dirty": there are uncommitted changes or files
+<4> Check that the repository is clean, i.e. all changes are committed
+<5> Get the unique identifier of the current repository commit
+
+===== Python Example with https://gitpython.readthedocs.io/en/stable/intro.html[gitpython]
+
+[source,python]
+---
+> from git import * # <1>
+> repo = Repo("/path/to/your/repo/dir") # <2>
+> if (repo.is_dirty()): raise Exception("Not proceeding! Repo is dirty!") # <3>
+> commitHash = repo.head.commit.__str__() # <4>
+---
+
+<1> Load the Python library for accessing git repositories
+<2> Get a handle for the repository
+<3> Check that the repository is clean, i.e. all changes are committed
+<4> Get the unique identifier of the current repository commit
+
+===== One more advise
+
+Please note, that the above examples only check your LOCAL repository. Thus said, it is not necessarily true, that the
+hash code you get is available to everyone. If you want to make sure that you don't only refer to a local hash / copy
+you could also check, if the hash code is available in at least one remote repository (In terms of git, this is the
+origin repository by default).
+
+=== Software deployment ...
+
+==== ... to publish and share
+
+[plantuml]
+....
+@startuml
+title
+Share!
+end title
+
+:you:
+:other:
+
+top to bottom direction
+you <-> other : communicate
+
+node "your system" as yours {
+   left to right direction
+   you ..> [workflow] : develop
+}
+
+node "other system" as others {
+   top to bottom direction
+   [workflow] -> [workflow ] : transfer
+
+   left to right direction
+   other ..> [workflow ] : execute
+}
+
+@enduml
+....
+
+==== .. to reuse
+[plantuml]
+....
+@startuml
+title
+Reuse!
+end title
+
+:you:
+:future you!: as future
+
+top to bottom direction
+you -> future : communicate
+
+node "old system" as old {
+   left to right direction
+   you ..> [workflow] : develop
+}
+
+node "new system" as new {
+   top to bottom direction
+   [workflow] -> [workflow ] : transfer
+
+   left to right direction
+   future ..> [workflow ] : reuse
+}
+
+
+@enduml
+....
+
+<<<
+==== ... to scale out
+[plantuml]
+....
+@startuml
+title
+Cloud!
+end title
+
+:you:
+
+cloud "de.NBI Cloud" {
+   node "Node 1000" as n1000
+   node "Node 1" as n1
+   node "Node 2" as n2
+
+   node n1 {
+     [workflow]
+     left to right direction
+     you ...> [workflow]
+   }
+
+   node n2 {
+     [workflow  ]
+     left to right direction
+     you ...> [workflow  ]
+   }
+
+   node n1000 {
+     [workflow ]
+     left to right direction
+     you ...> [workflow ]
+   }
+
+
+}
+
+@enduml
+....
+
+==== The Challenges
+
+* Lots of software tools! Lots of versions!
+* Windows, Mac, dozens of Linux distributions, in different versions ...
+* Bioinformatic software packages may get lost
+* Do this 1000 times?
+* Boring technical stuff
+
+==== Packaging System Requirements
+
+* Quick, easy & correct software deployment
+* Simple user-space installation without administrator rights
+* Manage multiple independent tool sets
+* Lots of packages ... maintained by s.b. else ;-D
+* Easy sharing
+* Possible to publish *your* tools
+
+==== Enter the realm of https://conda.io/docs/[Conda]
+
+* Open source software by https://www.anaconda.com/[Anaconda Inc.] (https://github.com/ContinuumIO[Continuum Analytics Inc.])
+* Command-line tool based on Python (2.7, 3.6)
+* Anaconda and https://conda.io/miniconda.html[Miniconda] distributions
+* For Linux > 9000 packages, > 86.000 versions (including those for bioinformatics; June 2018)
+  - Linux
+  - MacOS
+  - Windows
+
+==== ... and dive into https://bioconda.github.io/[BioConda]
+
+* Community-driven package repository (channel)
+ - > 4.000 bioinformatics related packages, > 18.000 versions
+ - BioConda https://github.com/bioconda/bioconda-recipes[Recipes]
+ - Most packages available for Linux
+
+==== Final Remarks on Conda
+
+* Tons of tutorials online
+** link:conda-tutorial.html[here]
+* Long-term package availability is not 100%
+** Use "Bioconda" together with "bioconda-legacy" channel
+** Backup the `pkgs/` directory in your Conda installation!
+
+=== Virtualization & Containers
+
+* Why?
+** You need to scale out to thousands of compute hours
+** Collaboration partners force you to
+
+====  Virtual Machines (VMs)
+
+  * Complete isolation of analysis environment
+  * Virtualization software (e.g. also for your desktop)
+  ** https://www.qemu.org/[KVM/QEMU], https://www.virtualbox.org/[VirtualBox], https://www.vmware.com/[VMWare]
++
+image::13742_2016_135_Fig5_HTML.png[Virtualization]
+
+==== Containers
+
+  * Use host-operating system (kernel)
+  * All software and libraries are installed in the container
+  * Container technologies
+  ** https://www.docker.com/[Docker]
+  ** https://singularity.lbl.gov/[Singularity]
+  ** https://coreos.com/rkt/docs/latest/[Rkt]
++
+image::13742_2016_135_Fig6_HTML.png[Containers]
+
+==== Cloud
+
+  * Usually VMs
+  * Simplified handling of multiple VMs
+  ** start/stop VMs as you need them
+  ** pay only what you need
+  ** additional advanced infrastructure at you fingertips
+  *** Large filesystems on demand
+  *** Object Store
+  *** GPUs
+  * Many cloud management systems
+  ** Commercial
+  *** Google Cloud, Amazon Web Services, Microsoft Azure, ...
+  ** https://www.openstack.org/[OpenStack]
+  *** Frequently used in science (e.g. https://www.denbi.de/cloud[de.NBI Cloud])
+  * You need administration knowledge
+  ** Tools that help you
+  *** https://github.com/gc3-uzh-ch/elasticluster[ElastiCluster], https://github.com/BiBiServ/bibigrid[BiBiGrid]
+
+IMPORTANT: If you deal with patient related data, public cloud services can be problematic regarding data protection and safety!
+
+=== Literate Programming
+
+* Keep code and documentation together
+** Analysis code
+** Exploratory data analyses
+** Data analysis results and interpretations
+** Decision log
+
+==== Jupyter Notebook
+
+* Web-server
+** Easy installation _via_ Conda
+** Can run on a large server
+** Can be started with a single command:
++
+ jupyter notebook
+
+* Various backends (called "kernels")
+** Bash, Python, R, Spark
+* Integrated display code, figures & documentation:
++
+image::Jupyter2.png[Plot]
+
+* Notebooks can be saved and shared
+
+== Summary
+
+* Aspects of reproducible bioinformatics (incomplete :-) )
+** Development
+*** Programming
+*** Workflow management systems
+** Execution
+*** Changing computational environments
+*** Migration
+** Logging
+*** Versioning
+*** Literate programming
+
+== Further Material
+
+* Courses PM7 and AM4 at the ISMB/ECCB 2019 in Basel @ https://www.iscb.org/ismbeccb2019-program/tutorials
+* Conda User's Guide @ https://conda.io/docs/user-guide
+* BioConda article @ https://www.nature.com/articles/s41592-018-0046-7
+* NBIS Reproducible Science Course @ https://nbis-reproducible-research.readthedocs.io/en/latest/
+* Source code revisioning with https://git-scm.com/[Git]
+  - Git Book @ https://git-scm.com/book/en/v2
+  - Github Flow @ https://guides.github.com/introduction/flow/
+* https://reproduciblescience.org/directory[reproduciblescience.org]
+* Miniconda @ https://conda.io/miniconda.html
+* BioConda Recipes @ https://github.com/bioconda/bioconda-recipes
+* de.NBI Cloud @ https://www.denbi.de/cloud
+
+== References
+
+* Container & virtualization images by +
+  Piccolo & Framton, Tools and techniques for computational reproducibility, GigaScience, Volume 5, Issue 1, 1 December 2016, https://dx.doi.org/10.1186%2Fs13742-016-0135-4[s13742-016-0135-4], under http://creativecommons.org/licenses/by/4.0/[Creative Commons Attribution 4.0 International License]
+* GitFlow image from https://www.nicoespeon.com/en/2013/08/which-git-workflow-for-my-project[Nicolas Carlo, 2013]
+
+== License
+
+Unless otherwise stated, this work and all parts of its are licensed under a http://creativecommons.org/licenses/by-nc-sa/4.0/[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License].
+
+image::1920px-Cc-by-nc-sa_euro_icon.svg.png[license icon, width=100, height=auto]
+
