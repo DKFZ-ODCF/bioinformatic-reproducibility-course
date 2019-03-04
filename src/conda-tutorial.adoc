@@ -1,6 +1,6 @@
 = A Conda Tutorial
 Philip R. Kensche & Michael Heinold
-v2.0, 2019-03-06
+v1.0, 2018-07-18
 :doctype: book
 :docinfo:
 
