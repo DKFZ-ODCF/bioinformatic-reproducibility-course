@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
 <meta name="author" content="Philip R. Kensche &amp; Michael Heinold">
-<title>Reproducibility in Bioinformatics</title>
+<title>A Conda Tutorial</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -524,7 +524,7 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="book">
 <div id="header">
-<h1>Reproducibility in Bioinformatics</h1>
+<h1>A Conda Tutorial</h1>
 <div class="details">
 <span id="author" class="author">Philip R. Kensche &amp; Michael Heinold</span><br>
 <span id="revnumber">version 2.0,</span>
@@ -547,15 +547,738 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="_content">Content</h2>
+<h2 id="_install_miniconda">Install Miniconda</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh <b class="conum">(1)</b>
+$ bash Miniconda3-latest-Linux-x86_64.sh
+$ source $HOME/.bashrc</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>alternatively take <code>curl <a href="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh" class="bare">https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh</a> -o Miniconda3-latest-Linux-x86_64.sh</code> or just your browser.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Choose a place where you have a enough free space. Environments are (by default) also installed there and each can take up 100s of megabytes. E.g. use <code>df -h</code> to get information about free space.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now start conda and get some information about the interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda
+usage: conda [-h] [-V] command ...
+
+conda is a tool for managing and deploying applications, environments and packages.
+
+Options:
+
+positional arguments:
+  command
+    info         Display information about current conda install.
+    help         Displays a list of available conda commands and their help
+                 strings.
+    list         List linked packages in a conda environment.
+    search       ...
+    create       ...
+    install      ...
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>... and the basic configuration information:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda info
+Current conda install:
+
+               platform : linux-64
+          conda version : 4.3.21
+       conda is private : False
+      conda-env version : 4.3.21
+    conda-build version : not installed
+         python version : 3.6.1.final.0
+       requests version : 2.14.2
+       root environment : /path/to/your/miniconda3  (writable)
+    default environment : /path/to/your/miniconda3
+       envs directories : /path/to/your/miniconda3/envs
+                          /path/to/your/.conda/envs
+          package cache : /path/to/your/miniconda3/pkgs
+                          /path/to/your/.conda/pkgs
+           channel URLs : https://repo.continuum.io/pkgs/free/linux-64
+                          https://repo.continuum.io/pkgs/free/noarch
+                          https://repo.continuum.io/pkgs/r/linux-64
+                          https://repo.continuum.io/pkgs/r/noarch
+                          https://repo.continuum.io/pkgs/pro/linux-64
+                          https://repo.continuum.io/pkgs/pro/noarch
+                          https://conda.anaconda.org/r/linux-64
+                          https://conda.anaconda.org/r/noarch
+            config file : /path/to/your/.condarc
+             netrc file : None
+           offline mode : False
+             user-agent : conda/4.3.21 requests/2.14.2 CPython/3.6.1 Linux/3.10.0-514.el7.x86_64 CentOS Linux/7.3.1611 glibc/2.17
+                UID:GID : 21917:1110</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_channels">Channels</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="presentation.html">Presentation</a></p>
+<p>Channels are conda&#8217;s package repositories</p>
 </li>
 <li>
-<p><a href="conda-tutorial.html">Conda Tutorial</a></p>
+<p>Multiple channels can be used at the same time with different priorities</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda config --add channels defaults     <b class="conum">(1)</b>
+$ conda config --add channels conda-forge
+$ conda config --add channels bioconda
+$ conda config --add channels bioconda-legacy <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Ananconda Inc.'s default channels</p>
+</li>
+<li>
+<p>Packages removed from bioconda</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each command adds a channel with higher priority than the previous commands.</p>
+</div>
+<div class="paragraph">
+<p>Now the output of &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda info
+...
+channel URLs : https://conda.anaconda.org/bioconda-legacy/linux-64  <b class="conum">(1)</b>
+               htttps://conda.anaconda.org/bioconda-legacy/noarch   <b class="conum">(1)</b>
+               https://conda.anaconda.org/bioconda/linux-64         <b class="conum">(1)</b>
+               https://conda.anaconda.org/bioconda/noarch           <b class="conum">(1)</b>
+               https://conda.anaconda.org/conda-forge/linux-64      <b class="conum">(1)</b>
+               https://conda.anaconda.org/conda-forge/noarch        <b class="conum">(1)</b>
+               https://repo.continuum.io/pkgs/free/linux-64
+               https://repo.continuum.io/pkgs/free/noarch
+               https://repo.continuum.io/pkgs/r/linux-64
+               https://repo.continuum.io/pkgs/r/noarch
+               https://repo.continuum.io/pkgs/pro/linux-64
+               https://repo.continuum.io/pkgs/pro/noarch
+               https://conda.anaconda.org/r/linux-64
+               https://conda.anaconda.org/r/noarch
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>... will show the updated channel list with the "bioconda-legacy", "bioconda" and "conda-forge channels.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_finding_packages">Finding Packages</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda search -h
+usage: conda search [-h] [-n ENVIRONMENT | -p PATH] [-i] [-C]
+                    [--platform PLATFORM] [--reverse-dependency] [--offline]
+                    [-c CHANNEL] [--override-channels] [--json] [--debug]
+                    [--verbose] [--use-local] [-k] [--envs]
+...
+
+$ conda search samtools
+Loading channels: done
+# Name                  Version           Build  Channel
+samtools                 0.1.12               0  bioconda
+samtools                 0.1.12               1  bioconda
+samtools                 0.1.12               2  bioconda
+...
+samtools                 0.1.19               0  bioconda
+samtools                 0.1.19               1  bioconda
+samtools                 0.1.19               2  bioconda
+samtools                 0.1.19               3  bioconda
+samtools                    1.0               0  bioconda
+samtools                    1.0               1  bioconda
+samtools                    1.0      hdd8ed8b_2  bioconda
+samtools                    1.1               0  bioconda
+...
+samtools                    1.8               2  bioconda
+samtools                    1.8               3  bioconda
+samtools                    1.8               4  bioconda
+samtools                    1.8      h46bd0b3_5  bioconda</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>First, you&#8217;ll notice that a search can take some time!</p>
+</div>
+<div class="paragraph">
+<p>The output shows which package versions match the search expression and are available from which channel in which version.</p>
+</div>
+<div class="paragraph">
+<p>Note that the build version sometimes is pretty simple, but sometimes rather cryptic. Build versions represent the same package but with changed</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Compile parameters</p>
+</li>
+<li>
+<p>Dependencies (numpy, &#8230;&#8203;)</p>
+</li>
+<li>
+<p>Interpreters (Perl, Python, R, &#8230;&#8203;)</p>
+</li>
+<li>
+<p>Commit hashes (where you can hope they produce the same results)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Commit hashes are identifiers given to individually tracked versions of a software</p>
+</li>
+<li>
+<p>No officially released versions</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also search for specific package versions and builds:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda search samtools==0.1.19  <b class="conum">(1)</b>
+Loading channels: done
+# Name                  Version           Build  Channel
+samtools                 0.1.19               0  bioconda
+samtools                 0.1.19               1  bioconda
+samtools                 0.1.19               2  bioconda
+samtools                 0.1.19               3  bioconda
+
+$ conda search '*samtools'       <b class="conum">(2)</b>
+Loading channels: done
+# Name                  Version           Build  Channel
+bioconductor-rsamtools          1.22.0        r3.2.2_0  bioconda
+bioconductor-rsamtools          1.22.0        r3.2.2_1  bioconda
+bioconductor-rsamtools          1.24.0        r3.3.1_0  bioconda
+bioconductor-rsamtools          1.26.1        r3.3.1_0  bioconda
+bioconductor-rsamtools          1.26.1        r3.3.2_0  bioconda
+bioconductor-rsamtools          1.26.1        r3.4.1_0  bioconda
+bioconductor-rsamtools          1.28.0        r3.4.1_0  bioconda
+bioconductor-rsamtools          1.30.0        r3.4.1_0  bioconda
+perl-bio-samtools                 1.43               0  bioconda
+samtools                        0.1.12               0  bioconda
+samtools                        0.1.12               1  bioconda
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>You can also try <code>conda search 'samtools&gt;=1'</code>.</p>
+</li>
+<li>
+<p>The quotes prevent globing the asterisk by the shell.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Check the Conda documentation on <a href="https://conda.io/docs/user-guide/tasks/build-packages/package-spec.html">package specification</a> for a description of the match pattern if you need to do complex searches.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_environments">Environments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Environments allow you to handle different&#8201;&#8212;&#8201;potentially incompatible&#8201;&#8212;&#8201;sets of tools.</p>
+</div>
+<div class="paragraph">
+<p>To list all available environments you can do:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda list                 <b class="conum">(1)</b>
+# conda environments:
+#
+base                  *  /path/to/your/miniconda3</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>An equivalent command is <code>conda info --envs</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create a new environment with another great tool for reproducible research:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda create -n interactive-analysis jupyter-notebook scipy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>First this shows you which exact versions and builds will be installed. For a single tool a large number of dependencies may be pulled in. This request will install about 125 MB of tools! Many of them are likely not used or needed by you.</p>
+</div>
+<div class="paragraph">
+<p>After you confirmed that the installation is o.k. the packages will get downloaded. When finished you can see the "interactive-analysis" in the list of your environments.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda env list
+# conda environments:
+#
+base                  *  /path/to/your/miniconda3
+interactive-analysis     /path/to/your/miniconda3/envs/interactive-analysis</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s first try</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ jupyter notebook
+bash: jupyter: Command not found</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s probably the obvious outcome of this negative control experiment :-P</p>
+</div>
+<div class="paragraph">
+<p>Now switch to the newly installed environment and try out your new toy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ source activate interactive-analysis
+$ jupyter notebook</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jupyter notebook will show a URL on the standard output and open it in a browser. You can then start a "Python 3 kernel" at the top right in the bar &#8230;&#8203;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Jupyter1.png" alt="Jupyter">
+</div>
+</div>
+<div class="paragraph">
+<p>... and then enter arbitary Python 3 expressions, such as</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="python"><span class="keyword">import</span> <span class="include">matplotlib.pyplot</span> <span class="keyword">as</span> plt
+<span class="keyword">import</span> <span class="include">numpy</span> <span class="keyword">as</span> np
+<span class="keyword">import</span> <span class="include">scipy.stats</span> <span class="keyword">as</span> sp
+<span class="keyword">import</span> <span class="include">math</span>
+
+mu = <span class="integer">0</span>
+variance = <span class="integer">1</span>
+sigma = math.sqrt(variance)
+x = np.linspace(mu - <span class="integer">3</span>*sigma, mu + <span class="integer">3</span>*sigma, <span class="integer">100</span>)
+plt.plot(x,sp.norm.pdf(x, mu, sigma))
+plt.show()</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Jupyter2.png" alt="Plot">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Jupyter provides kernels as programming language backends. A complete list can be found at <a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels" class="bare">https://github.com/jupyter/jupyter/wiki/Jupyter-kernels</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_oops">Oops!</h3>
+<div class="paragraph">
+<p>Actually, in my case when starting the Python kernel in Jupyter, I got an error message. Apparently, the specific version of the Jupyter package was broken!</p>
+</div>
+<div class="paragraph">
+<p>This is not only a demonstration of the daily life in bioinformatics but also the ideal opportunity to demonstrate that you can install arbitrary Python packages in this environment using the <code>pip</code> tool. So after &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ pip install jupyter -U</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>... an up-to-date Jupyter Notebook package is installed in the environment!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_leaving_environments">Leaving Environments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you are done with your work, you can do &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ source deactivate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>... to restore you original, Conda-free environment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sharing_environments">Sharing Environments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>How to transfer an environment to a different machine?</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Export the environment specification into a YAML file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda env export -n interactive-analysis &gt; environment.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The resulting YAML file looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">name</span>: <span class="string"><span class="content">interactive-analysis</span></span>
+<span class="key">channels</span>:
+  - <span class="string"><span class="content">defaults</span></span>
+  - <span class="string"><span class="content">r</span></span>
+  - <span class="string"><span class="content">bioconda</span></span>
+  - <span class="string"><span class="content">conda-forge</span></span>
+<span class="key">dependencies</span>:
+  - <span class="string"><span class="content">bleach=1.4.2=py36_0</span></span>
+  - <span class="string"><span class="content">ca-certificates=2017.11.5=0</span></span>
+  - <span class="string"><span class="content">certifi=2017.11.5=py36_0</span></span>
+  - <span class="string"><span class="content">dbus=1.10.22=0</span></span>
+  - <span class="string"><span class="content">samtools=4.1.2=py36_0</span></span>
+  <span class="error">...</span>
+<span class="key">prefix</span>: <span class="string"><span class="content">/path/to/your/miniconda3/envs/interactive-analysis</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>prefix</code> line shows a local path and is non-essential. It can be removed when publishing.</p>
+</div>
+</li>
+<li>
+<p>Copy the file to the target machine.</p>
+</li>
+<li>
+<p>Create a new environment using the file. We just make a local copy for demonstration, but you could equally execute this on a different system.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda env create -n interactive-analysis-copy -f environment.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After this you can <code>source activate</code> the new environment!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_removing_environments">Removing Environments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s remove the copy of the "interactive-analysis" environment we just created:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis
+interactive-analysis-copy  /path/to/your/miniconda3/envs/interactive-analysis-copy
+
+$ conda env remove -n interactive-analysis-copy
+
+$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+interactive-analysis       /path/to/your/miniconda3/envs/interactive-analysis</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_renaming_environments">Renaming Environments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There is no dedicated renaming command. Instead, renaming an environment is done by "cloning" it and removing the original:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda create --clone interactive-analysis -n my-nature-publication
+$ conda remove -n interactive-analysis
+$ conda env list
+# conda environments:
+#
+base                       /path/to/your/miniconda3
+my-nature-publication      /path/to/your/miniconda3/envs/my-nature-publication</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_limitations">Limitations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Conda is easy to install and use, but also has its limitations.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Of each package only a single version can be installed</p>
+</li>
+<li>
+<p><code>conda install</code> can be slow or may even refuse to terminate</p>
+</li>
+<li>
+<p><code>conda install</code> may fail to find non-conflicting package versions</p>
+</li>
+<li>
+<p>Dependencies in the "build recipes" can be too narrow or too wide</p>
+</li>
+<li>
+<p>Contributing recipes can be hard</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Not all software is accepted by all channels</p>
+</li>
+<li>
+<p>Different channels provide different tooling for contributing packages ("continuous integration")</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Packages can get lost!</strong> (So far for reproducibility!)</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_package_loss">Package Loss?</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Complete rebuild of channels</p>
+<div class="ulist">
+<ul>
+<li>
+<p>May result in updated build dependencies (Perl, R, Python)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Packages get moved between channels (e.g. Bioconda &harr; Conda Forge)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>May result in updated build dependencies (Perl, R, Python)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Packages get completely removed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>How to cope with these problems?</p>
+</div>
+<div class="sect3">
+<h4 id="_bioconda_legacy_channel">"bioconda-legacy" Channel</h4>
+<div class="paragraph">
+<p><strong>Some</strong> outdated packages can still be present there.</p>
+</div>
+<div class="paragraph">
+<p>Search in 'bioconda-legacy' without adding it to the channel queue:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda search -c bioconda-legacy 'r-getopt==1.20.0=r3.2.2_0'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add the channel to your channel list with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ conda config --add channels bioconda-legacy</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_upgrade_to_newer_r_perl_python">Upgrade to newer R, Perl, Python</h4>
+<div class="paragraph">
+<p>It may be safe to upgrade to newer versions of R, Perl, Python, as long as the bioinformatics packages remain at the
+same version.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove version constraints from the exported environment YAML file</p>
+</li>
+<li>
+<p>Let Conda find a suited package version</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">name</span>: <span class="string"><span class="content">interactive-analysis</span></span>
+<span class="key">channels</span>:
+  - <span class="string"><span class="content">defaults</span></span>
+  - <span class="string"><span class="content">r</span></span>
+  - <span class="string"><span class="content">bioconda</span></span>
+  - <span class="string"><span class="content">conda-forge</span></span>
+<span class="key">dependencies</span>:
+  - <span class="string"><span class="content">ca-certificates             </span></span><b class="conum">(1)</b>
+  - <span class="string"><span class="content">r-base=3.3.*                </span></span><b class="conum">(2)</b>
+  - <span class="string"><span class="content">r-lattice=0.20_34           </span></span><b class="conum">(3)</b>
+  <span class="error">...</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Complete version removed. Package has little influence on the analysis.</p>
+</li>
+<li>
+<p>Changed from "=r3.3.2=5".</p>
+</li>
+<li>
+<p>Left out the R version "=r3.3.2_0". Package is highly stable since before R 2.0.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_other_solutions">Other Solutions</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Build a local version of the package with <code>conda build</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>May require old package recipes from the channel&#8217;s Github repositories</p>
+</li>
+<li>
+<p>Keep the <code>pkgs</code> directory in your Conda installation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Archives in there can be used to build your own channel</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use containers or virtual machines to avoid having to reinstall the Conda environment</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Rebuilding the container/VM will not be possible without the packages, though</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary">Summary</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Conda has probably the largest community of bioinformatics package contributors</p>
+</li>
+<li>
+<p>With Conda it is easy and fast to set up environments</p>
+</li>
+<li>
+<p>You can contribute recipes for packages you need or your own packages</p>
+</li>
+<li>
+<p>Conda can well be combined with container technology, like <a href="https://singularity.lbl.gov/">Singularity</a> or <a href="https://www.docker.com/">Docker</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>at the cost of additional complexity</p>
+</li>
+<li>
+<p>BioConda has automatic building of Docker and Singularity containers to <a href="https://conda.io/docs/">BioContainers</a></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -569,7 +1292,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="1920px-Cc-by-nc-sa_euro_icon.svg.png" alt="license icon" width="100" height="auto">
+<img src="1920px-Cc-by-nc-sa_euro_icon.svg.png" alt="license icon" width="100">
 </div>
 </div>
 </div>
@@ -578,7 +1301,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2019-03-04 17:28:04 +0100
+Last updated 2019-03-04 17:33:20 +0100
 </div>
 </div>
 </body>
