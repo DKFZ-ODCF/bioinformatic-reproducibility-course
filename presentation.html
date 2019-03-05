@@ -530,6 +530,29 @@ table.CodeRay td.code>pre{padding:0}
 <span id="revnumber">version 2.0,</span>
 <span id="revdate">2019-03-06</span>
 </div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_definition_reproducibility">Definition "Reproducibility"</a></li>
+<li><a href="#_limits_of_reproducibility">Limits of Reproducibility</a></li>
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_a_bioinformaticians_toolshed">A Bioinformaticians Toolshed</a>
+<ul class="sectlevel2">
+<li><a href="#_a_bioinformatics_research_workflow">A Bioinformatics Research Workflow</a></li>
+<li><a href="#_workflow_management_systems">Workflow Management Systems</a></li>
+<li><a href="#_notes_on_programming">Notes on Programming</a></li>
+<li><a href="#_version_control_systems">Version Control Systems</a></li>
+<li><a href="#_software_deployment">Software deployment &#8230;&#8203;</a></li>
+<li><a href="#_virtualization_containers">Virtualization &amp; Containers</a></li>
+<li><a href="#_literate_programming">Literate Programming</a></li>
+</ul>
+</li>
+<li><a href="#_summary">Summary</a></li>
+<li><a href="#_further_material">Further Material</a></li>
+<li><a href="#_references">References</a></li>
+<li><a href="#_license">License</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
@@ -560,7 +583,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="ulist">
 <ul>
 <li>
-<p>E.g. in-experiment reproducibility quantified as standard deviation</p>
+<p>Quantified within experiments e.g. as standard deviation</p>
 </li>
 <li>
 <p>Measurements at various scales of mathematical derivation</p>
@@ -569,28 +592,18 @@ table.CodeRay td.code>pre{padding:0}
 <li>
 <p>"Raw" data is produced by the sensor hardware</p>
 </li>
-<li>
-<p>Derived measurements are used to interpret the results</p>
-</li>
 </ul>
 </div>
 </li>
 <li>
-<p>"&#8230;&#8203; using the same methodology."</p>
+<p>"&#8230;&#8203; using the same methodology." requires description</p>
 <div class="ulist">
 <ul>
 <li>
-<p>All numbers must be described such that &#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
-<p>&#8230;&#8203; they can be interpreted</p>
+<p>Interpretability</p>
 </li>
 <li>
-<p>&#8230;&#8203; they can be reproduced [exactly] from the same raw data</p>
-</li>
-</ul>
-</div>
+<p>Exact reproducibility from the same raw data</p>
 </li>
 </ul>
 </div>
@@ -617,25 +630,48 @@ Reproducibility ensures refutability based on methodological reasons!
 <div class="ulist">
 <ul>
 <li>
-<p>Wet-lab: possible but never exact</p>
-</li>
-<li>
-<p><em>In silico</em>: exact reproducibility seems possible but</p>
+<p>Wet-lab</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Limited by data biases and noise</p>
-</li>
-<li>
-<p>Limited by computer hardware</p>
+<p>Possible but never exact</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>At some point further investment to reproduce results is futile!</p>
+<p><em>In silico</em></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Exact reproducibility seems possible but &#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>&#8230;&#8203; limited by data biases and noise</p>
+</li>
+<li>
+<p>&#8230;&#8203; limited by computer hardware</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+At some point further investment to reproduce results is waste of time!
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -684,10 +720,13 @@ Reproducibility ensures refutability based on methodological reasons!
 <p>Quick &amp; leaky (&amp; correct)</p>
 </li>
 <li>
-<p>Aim: Learn about the general problems of the question</p>
+<p>Not meant to share</p>
 </li>
 <li>
 <p>Throw away!</p>
+</li>
+<li>
+<p>Aim: Learn about question and implementation</p>
 </li>
 <li>
 <p>Often done in interactive sessions</p>
@@ -703,13 +742,13 @@ Reproducibility ensures refutability based on methodological reasons!
 <p>Made to last</p>
 </li>
 <li>
+<p>Not meant to share</p>
+</li>
+<li>
 <p>Log analysis, decisions, interpretations</p>
 </li>
 <li>
 <p>Log errors, failure, conclusions &amp; steps towards the correct solution</p>
-</li>
-<li>
-<p>Not meant to share</p>
 </li>
 </ul>
 </div>
@@ -722,10 +761,10 @@ Reproducibility ensures refutability based on methodological reasons!
 <p>Based on canonical set of intermediate results</p>
 </li>
 <li>
-<p>High certainty and consistency</p>
+<p>Arranged by interpretation &amp; reasoning</p>
 </li>
 <li>
-<p>Arranged by interpretation &amp; reasoning</p>
+<p>High certainty and consistency</p>
 </li>
 <li>
 <p>Sufficient to communicate to cooperation partners</p>
@@ -828,16 +867,16 @@ Reproducibility ensures refutability based on methodological reasons!
 <div class="ulist">
 <ul>
 <li>
-<p>Writing a workflow</p>
-</li>
-<li>
-<p>Composing a workflow in Galaxy</p>
+<p>Logging in to a computer checks s.th. on the shell</p>
 </li>
 <li>
 <p>Plotting something in R</p>
 </li>
 <li>
-<p>Logging in to a computer checks s.th. on the shell</p>
+<p>Composing a workflow in Galaxy</p>
+</li>
+<li>
+<p>Writing a workflow</p>
 </li>
 </ul>
 </div>
@@ -984,7 +1023,7 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 <p>Doing quick checks of files</p>
 </li>
 <li>
-<p>Top-level automatization of multiple tools into <strong>simple</strong> workflows</p>
+<p>Top-level automation of multiple tools into <strong>simple</strong> workflows</p>
 </li>
 <li>
 <p>Plugging together (few) components</p>
@@ -1000,7 +1039,7 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 <p>Workflows with more than 2-3 steps and branchings</p>
 </li>
 <li>
-<p>Handling errors (they will happen!)</p>
+<p>Handling errors (Errors will happen!)</p>
 </li>
 </ul>
 </div></div></td>
@@ -1013,7 +1052,7 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 <div class="ulist">
 <ul>
 <li>
-<p>Scripting languages are not "compiled" into binaries (assembly language)</p>
+<p>Are interpreted and directly executed by an "interpreter"</p>
 </li>
 </ul>
 </div>
@@ -1068,7 +1107,14 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 </table>
 </div>
 <div class="sect4">
-<h5 id="_compiled_languages">Compiled Languages</h5>
+<h5 id="_java_c_c_and_other_compiled_languages">Java, C++, C# and other Compiled Languages</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Translated by a "compiler" into an executible</p>
+</li>
+</ul>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1108,6 +1154,18 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 </tr>
 </tbody>
 </table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Boundaries are fuzzy: Compilers for scripting languages and scripting features for compiled languages!
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -1118,9 +1176,6 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 <p>Code review</p>
 </li>
 <li>
-<p>Ask a software developer</p>
-</li>
-<li>
 <p>Use an integrated development environment [IDE] (PyCharm, IntelliJ IDEA, &#8230;&#8203;)</p>
 </li>
 <li>
@@ -1128,13 +1183,10 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 <div class="ulist">
 <ul>
 <li>
-<p>Ensure your program remains correct</p>
+<p>Ensure your program <strong>remains</strong> correct</p>
 </li>
 <li>
 <p>Unit testing frameworks</p>
-</li>
-<li>
-<p>Even in Bash [shunit2]</p>
 </li>
 </ul>
 </div>
@@ -1182,7 +1234,7 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_terminology_for_git">Terminology for Git</h4>
+<h4 id="_github_flow"><a href="https://guides.github.com/introduction/flow/">GitHub Flow</a></h4>
 <div class="imageblock">
 <div class="content">
 <img src="github-flow-branching-model-0606fb12b7a55784a3b52833fd015ebd-e0740.png" alt="TheGitHubflow" width="500">
@@ -1191,22 +1243,22 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 <div class="ulist">
 <ul>
 <li>
-<p>Registering code as version valuable enough to track is called "committing"</p>
+<p>Commit: registered code version</p>
 </li>
 <li>
-<p>Every commit is associated with a number (the "hash")</p>
+<p>Hash: number associated with commit</p>
 </li>
 <li>
-<p>Parallel development lines are tracked in "branches"</p>
+<p>Branches: parallel development lines</p>
 </li>
 <li>
-<p>The active code base on filesystem is the "checked out" branch (plus uncommitted changes)</p>
+<p>Checkout: active registered code base on filesystem (plus uncommitted changes)</p>
 </li>
 <li>
-<p>Main development line is the "master branch"</p>
+<p>Master branch: main development line</p>
 </li>
 <li>
-<p>Fixed versions can be marked with a tag</p>
+<p>Tag: named commit</p>
 </li>
 </ul>
 </div>
@@ -1235,7 +1287,7 @@ Code is living. It changes while you fix bugs and extend it. And it can grow int
 <p>Git Book @ <a href="https://git-scm.com/book/en/v2" class="bare">https://git-scm.com/book/en/v2</a></p>
 </li>
 <li>
-<p>Consider using a Git GUI (NOTE: Code is living[here] a list) or an IDE that knows Git</p>
+<p>Consider using a Git GUI or an IDE that knows Git</p>
 </li>
 <li>
 <p><a href="https://guides.github.com/introduction/flow/">Happy Git and Github for useR</a></p>
@@ -1486,7 +1538,7 @@ origin repository by default).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>One at the end of this document</p>
+<p><a href="conda-tutorial.html">here</a></p>
 </li>
 </ul>
 </div>
@@ -1884,7 +1936,7 @@ Piccolo &amp; Framton, Tools and techniques for computational reproducibility, G
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="1920px-Cc-by-nc-sa_euro_icon.svg.png" alt="license icon" width="100">
+<img src="1920px-Cc-by-nc-sa_euro_icon.svg.png" alt="license icon" width="100" height="auto">
 </div>
 </div>
 </div>
@@ -1893,7 +1945,7 @@ Piccolo &amp; Framton, Tools and techniques for computational reproducibility, G
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2019-03-04 17:15:37 +0100
+Last updated 2019-03-05 15:46:07 +0100
 </div>
 </div>
 </body>
