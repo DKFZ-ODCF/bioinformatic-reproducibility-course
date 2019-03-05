@@ -9,7 +9,6 @@ v2.0, 2019-03-06
 * HTML 5 Document:   https://dkfz-odcf.github.io/bioinformatic-reproducibility-course
 * Github Repository: https://github.com/DKFZ-ODCF/bioinformatic-reproducibility-course
 
-
 == Definition "Reproducibility"
 
 Modified after Wikipedia:
@@ -19,7 +18,7 @@ Modified after Wikipedia:
 * Quantified within experiments e.g. as standard deviation
 * Measurements at various scales of mathematical derivation
 ** "Raw" data is produced by the sensor hardware
-* "... using the same methodology."
+* "... using the same methodology." requires description
 ** Interpretability
 ** Exact reproducibility from the same raw data
 
@@ -54,22 +53,23 @@ image::reproducibility.png[Reproducibility,width=500]
 ==== Prototyping
 
 * Quick & leaky (& correct)
-* Aim: Learn about the general problems of the question
+* Not meant to share
 * Throw away!
+* Aim: Learn about question and implementation
 * Often done in interactive sessions
 
 ==== Exploration
 
 * Made to last
+* Not meant to share
 * Log analysis, decisions, interpretations
 * Log errors, failure, conclusions & steps towards the correct solution
-* Not meant to share
 
 ==== Reconciliation
 
 * Based on canonical set of intermediate results
-* High certainty and consistency
 * Arranged by interpretation & reasoning
+* High certainty and consistency
 * Sufficient to communicate to cooperation partners
 
 ==== Publication
@@ -105,10 +105,10 @@ image::reproducibility.png[Reproducibility,width=500]
 ==== What is programming?
 
 * Examples
-** Writing a workflow
-** Composing a workflow in Galaxy
-** Plotting something in R
 ** Logging in to a computer checks s.th. on the shell
+** Plotting something in R
+** Composing a workflow in Galaxy
+** Writing a workflow
 
 ==== Programming as Communication
 
@@ -158,17 +158,17 @@ NOTE: Code is living. It changes while you fix bugs and extend it. And it can gr
 | Con
 
 | * Doing quick checks of files
-  * Top-level automatization of multiple tools into *simple* workflows
+  * Top-level automation of multiple tools into *simple* workflows
   * Plugging together (few) components
 
 | * Working with complex data
   * Workflows with more than 2-3 steps and branchings
-  * Handling errors (they will happen!)
+  * Handling errors (Errors will happen!)
 |===
 
 ===== Python, Perl, Ruby or other Scripting Languages
 
-* Scripting languages are not "compiled" into binaries (assembly language)
+* Are interpreted and directly executed by an "interpreter"
 
 [cols="1a, 1a", options=header]
 |===
@@ -185,7 +185,9 @@ NOTE: Code is living. It changes while you fix bugs and extend it. And it can gr
   ** through tests and assertions
 |===
 
-===== Compiled Languages
+===== Java, C++, C# and other Compiled Languages
+
+* Translated by a "compiler" into an executible
 
 [cols="1a, 1a", options=header]
 |===
@@ -200,15 +202,15 @@ NOTE: Code is living. It changes while you fix bugs and extend it. And it can gr
   * Get going quickly
 |===
 
+NOTE: Boundaries are fuzzy: Compilers for scripting languages and scripting features for compiled languages!
+
 ==== Programming Power Tools
 
   * Code review
-  * Ask a software developer
   * Use an integrated development environment [IDE] (PyCharm, IntelliJ IDEA, ...)
   * Automated tests
-  ** Ensure your program remains correct
+  ** Ensure your program **remains** correct
   ** Unit testing frameworks
-  ** Even in Bash [shunit2]
   * Use a version control system
 
 === Version Control Systems
@@ -222,7 +224,7 @@ NOTE: Code is living. It changes while you fix bugs and extend it. And it can gr
   ** SNV, CVS, Mercurial, **Git**, ...
 
 
-==== Terminology for Git
+==== https://guides.github.com/introduction/flow/[GitHub Flow]
 
 image::github-flow-branching-model-0606fb12b7a55784a3b52833fd015ebd-e0740.png[TheGitHubflow,width=500]
 
@@ -288,13 +290,6 @@ NOTE: Tracking code versions is often not enough. Consider using https://git-lfs
 <2> Get a handle for the repository
 <3> Check that the repository is clean, i.e. all changes are committed
 <4> Get the unique identifier of the current repository commit
-
-===== One more advise
-
-Please note, that the above examples only check your LOCAL repository. Thus said, it is not necessarily true, that the
-hash code you get is available to everyone. If you want to make sure that you don't only refer to a local hash / copy
-you could also check, if the hash code is available in at least one remote repository (In terms of git, this is the
-origin repository by default).
 
 === Software deployment ...
 
@@ -439,7 +434,7 @@ cloud "de.NBI Cloud" {
 * Tons of tutorials online
 ** link:conda-tutorial.html[here]
 * Long-term package availability is not 100%
-** Use "Bioconda" together with "bioconda-legacy" channel
+** Use "bioconda" together with "bioconda-legacy" channel
 ** Backup the `pkgs/` directory in your Conda installation!
 
 === Virtualization & Containers
@@ -513,18 +508,13 @@ image::Jupyter2.png[Plot]
 
 * Notebooks can be saved and shared
 
-== Summary
+== Conclusion
 
-* Aspects of reproducible bioinformatics (incomplete :-) )
-** Development
-*** Programming
-*** Workflow management systems
-** Execution
-*** Changing computational environments
-*** Migration
-** Logging
-*** Versioning
-*** Literate programming
+* Programming is communication & complexity management
+* Bioinformatic reproducibility tools
+** Learnable
+** Doable
+** Worth it!
 
 == Further Material
 

@@ -84,7 +84,7 @@ Current conda install:
 
 [source,bash]
 ----
-$ conda config --add channels defaults     <1>
+$ conda config --add channels defaults        <1>
 $ conda config --add channels conda-forge
 $ conda config --add channels bioconda
 $ conda config --add channels bioconda-legacy <2>
@@ -116,7 +116,7 @@ channel URLs : https://conda.anaconda.org/bioconda-legacy/linux-64  <1>
                https://conda.anaconda.org/r/noarch
 ...
 ----
-<1> \... will show the updated channel list with the "bioconda-legacy", "bioconda" and "conda-forge channels.
+<1> \... will show the updated channel list with the "bioconda-legacy", "bioconda" and "conda-forge" channels.
 
 
 == Finding Packages
