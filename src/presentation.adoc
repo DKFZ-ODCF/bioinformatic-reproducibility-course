@@ -248,8 +248,8 @@ image::github-flow-branching-model-0606fb12b7a55784a3b52833fd015ebd-e0740.png[Th
 
 ==== One Step Further
 
-  * Link data to repository state
   * Ensure your repo is clean
+  * Link data to repository state
   * Put your commit hash into figures and files
   * Git-bindings available for all programming languages
 
@@ -272,7 +272,7 @@ NOTE: Tracking code versions is often not enough. Consider using https://git-lfs
 
 <1> Load the R library for accessing git repositories
 <2> Get a handle for the repository
-<3> Simple (!) definition of "dirty": there are uncommitted changes or files
+<3> Definition of "dirty": there are uncommitted changes or files
 <4> Check that the repository is clean, i.e. all changes are committed
 <5> Get the unique identifier of the current repository commit
 
